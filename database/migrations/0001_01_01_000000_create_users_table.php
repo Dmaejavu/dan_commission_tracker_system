@@ -11,29 +11,40 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // User table
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->integer('userID', 6)->primary();
+            $table->string('username', 16);
+            $table->string('password', 50);
+            $table->enum('position', ['Admin', 'Owner']);
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        // Agent table
+        Schema::create('agents', function (Blueprint $table) {
+            $table->integer('agentID', 6)->primary();
+            $table->string('agentname', 50);
+            $table->float('comrate');
+            $table->string('area', 20);
         });
 
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+        // Commission table
+        Schema::create('commissions', function (Blueprint $table) {
+            $table->integer('comID', 6)->primary();
+            $table->integer('userID', 6);
+            $table->integer('agentID', 6);
+            $table->float('totalcom');
+            $table->string('clientname', 50);
+
+            // Foreign keys
+            $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
+            $table->foreign('agentID')->references('agentID')->on('agents')->onDelete('cascade');
+        });
+
+        // Card table
+        Schema::create('cards', function (Blueprint $table) {
+            $table->integer('cardID', 6)->primary();
+            $table->enum('banktype', ['BDO', 'BPI', 'CBC']);
+            $table->enum('cardtype', ['Silver', 'Gold', 'Platinum']);
         });
     }
 
@@ -42,8 +53,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('cards');
+        Schema::dropIfExists('commissions');
+        Schema::dropIfExists('agents');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 };
