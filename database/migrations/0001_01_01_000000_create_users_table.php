@@ -13,27 +13,30 @@ return new class extends Migration
     {
         // User table
         Schema::create('users', function (Blueprint $table) {
-            $table->integer('userID', 6)->primary();
+            $table->integer('userID')->primary(); 
             $table->string('username', 16);
-            $table->string('password', 50);
-            $table->enum('position', ['Admin', 'Owner']);
+            $table->string('password', 60);
+            $table->enum('position', ['Admin', 'Owner', 'UnitManager']);
         });
 
         // Agent table
         Schema::create('agents', function (Blueprint $table) {
-            $table->integer('agentID', 6)->primary();
+            $table->integer('agentID')->primary()->autoIncrement();
             $table->string('agentname', 50);
             $table->float('comrate');
-            $table->string('area', 20);
+            $table->string('area', 50);
+            $table->timestamps(); // Adds `created_at` and `updated_at` columns
         });
 
         // Commission table
         Schema::create('commissions', function (Blueprint $table) {
-            $table->integer('comID', 6)->primary();
-            $table->integer('userID', 6);
-            $table->integer('agentID', 6);
+            $table->integer('comID')->primary()->autoIncrement();
+            $table->integer('userID');
+            $table->integer('agentID');
             $table->float('totalcom');
             $table->string('clientname', 50);
+            $table->enum('status', ['Pending', 'Approved', 'Rejected', 'Canceled']);
+            $table->timestamps(); // Adds `created_at` and `updated_at` columns
 
             // Foreign keys
             $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
@@ -42,7 +45,7 @@ return new class extends Migration
 
         // Card table
         Schema::create('cards', function (Blueprint $table) {
-            $table->integer('cardID', 6)->primary();
+            $table->integer('cardID')->primary(); 
             $table->enum('banktype', ['BDO', 'BPI', 'CBC']);
             $table->enum('cardtype', ['Silver', 'Gold', 'Platinum']);
         });
