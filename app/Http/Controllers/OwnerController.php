@@ -1,20 +1,26 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Commission;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Agent;
-use Illuminate\Http\Request;
+use App\Models\Commission;
 
 class OwnerController extends Controller
 {
     public function dashboard()
     {
-        $commissions = Commission::with('user', 'agent')->get();
-        $users = User::whereIn('position', ['Admin', 'UnitManager'])->get();
+        // Fetch all users
+        $users = User::all();
+
+        // Fetch all agents
         $agents = Agent::with('commissions')->get();
 
-        return view('owner.dashboardowner', compact('commissions', 'users', 'agents'));
+        // Fetch all commissions with related user, agent, and card data
+        $commissions = Commission::with('user', 'agent', 'card')->get();
+
+        // Pass the data to the view
+        return view('owner.dashboardowner', compact('users', 'agents', 'commissions'));
     }
 
     public function updateCommissionStatus(Request $request)

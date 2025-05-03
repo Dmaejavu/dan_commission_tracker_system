@@ -17,7 +17,7 @@ class AdminController extends Controller
         // Fetch all agents
         $agents = Agent::all();
 
-        // Fetch all commissions with related data
+        // Fetch all commissions with related user, agent, and card data
         $commissions = Commission::with('user', 'agent', 'card')->get();
 
         // Pass the data to the view

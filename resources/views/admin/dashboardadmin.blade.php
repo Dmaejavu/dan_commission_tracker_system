@@ -70,11 +70,13 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th>Commission ID</th>
+                    <th>Commission Number</th>
                     <th>User</th>
                     <th>Agent</th>
                     <th>Total Commission</th>
                     <th>Client Name</th>
+                    <th>Bank Type</th>
+                    <th>Card Type</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -86,6 +88,8 @@
                         <td>{{ $commission->agent->agentname }}</td>
                         <td>{{ $commission->totalcom }}</td>
                         <td>{{ $commission->clientname }}</td>
+                        <td>{{ $commission->card->banktype ?? 'N/A' }}</td>
+                        <td>{{ $commission->card->cardtype ?? 'N/A' }}</td>
                         <td>{{ $commission->status }}</td>
                     </tr>
                 @endforeach
