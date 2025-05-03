@@ -18,10 +18,10 @@ class CommissionController extends Controller
             'agentID' => 'required|exists:agents,agentID',
         ]);
 
-        // Find or create the card based on banktype and cardtype
+        //banktype and cardtype
         $card = Card::firstOrCreate(
             ['banktype' => $request->banktype, 'cardtype' => $request->cardtype],
-            ['cardID' => Card::max('cardID') + 1] // Auto-generate cardID
+            ['cardID' => Card::max('cardID') + 1]
         );
 
         // Create the commission
@@ -31,7 +31,7 @@ class CommissionController extends Controller
             'status' => 'Pending', // Default status
             'cardID' => $card->cardID,
             'agentID' => $request->agentID,
-            'userID' => Auth::id(), // Set the userID to the currently logged-in user's ID
+            'userID' => Auth::id(), 
         ]);
 
         return redirect()->route('dashboardadmin')->with('success', 'Commission created successfully!');
@@ -61,8 +61,8 @@ class CommissionController extends Controller
 
     public function create()
     {
-        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); // Fetch distinct bank types
-        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); // Fetch distinct card types
+        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); 
+        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); 
 
         return view('admin.create_commission', compact('banktypes', 'cardtypes'));
     }
