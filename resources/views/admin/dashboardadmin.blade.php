@@ -27,22 +27,37 @@
         <h2>Create Commission</h2>
         <form action="{{ route('commissions.store') }}" method="POST">
             @csrf
-            <input type="hidden" name="userID" value="{{ auth()->user()->userID }}"> {{-- Current logged-in user --}}
-            
-            <label for="agentID">Agent:</label>
-            <select name="agentID" id="agentID" required>
-                @foreach ($agents as $agent)
-                    <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
-                @endforeach
-            </select>
+
+            <label for="clientname">Client Name:</label>
+            <input type="text" name="clientname" id="clientname" required>
             <br>
 
             <label for="totalcom">Total Commission:</label>
             <input type="number" step="0.01" name="totalcom" id="totalcom" required>
             <br>
 
-            <label for="clientname">Client Name:</label>
-            <input type="text" name="clientname" id="clientname" required>
+            <label for="banktype">Bank Type:</label>
+            <select name="banktype" id="banktype" required>
+                @foreach ($banktypes as $banktype)
+                    <option value="{{ $banktype }}">{{ $banktype }}</option>
+                @endforeach
+            </select>
+            <br>
+
+            <label for="cardtype">Card Type:</label>
+            <select name="cardtype" id="cardtype" required>
+                @foreach ($cardtypes as $cardtype)
+                    <option value="{{ $cardtype }}">{{ $cardtype }}</option>
+                @endforeach
+            </select>
+            <br>
+
+            <label for="agentID">Agent:</label>
+            <select name="agentID" id="agentID" required>
+                @foreach ($agents as $agent)
+                    <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
+                @endforeach
+            </select>
             <br>
 
             <button type="submit">Create Commission</button>

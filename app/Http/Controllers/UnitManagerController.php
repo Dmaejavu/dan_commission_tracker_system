@@ -11,6 +11,6 @@ class UnitManagerController extends Controller
         // Fetch all commissions with related user and agent data
         $commissions = Commission::with('user', 'agent')->get();
 
-        return view('dashboardunitmanager', compact('commissions'));
+        return view('unitmanager.dashboardunitmanager', compact('commissions'));
     }
 }

@@ -2,33 +2,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Commission;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Commission;
+use App\Models\Card;
 
 class CommissionController extends Controller
 {
     public function store(Request $request)
     {
         $request->validate([
-            'agentID' => 'required|exists:agents,agentID',
-            'totalcom' => 'required|numeric',
             'clientname' => 'required|string|max:50',
+            'totalcom' => 'required|numeric',
+            'banktype' => 'required',
+            'cardtype' => 'required',
+            'agentID' => 'required|exists:agents,agentID',
         ]);
 
-        // Get the authenticated user
-        $user = Auth::user();
+        // Find or create the card based on banktype and cardtype
+        $card = Card::firstOrCreate(
+            ['banktype' => $request->banktype, 'cardtype' => $request->cardtype],
+            ['cardID' => Card::max('cardID') + 1] // Auto-generate cardID
+        );
 
-        if (!$user) {
-            return redirect()->route('login')->withErrors(['error' => 'You must be logged in to create a commission.']);
-        }
-
-        // Create a new commission
+        // Create the commission
         Commission::create([
-            'userID' => $user->userID,
-            'agentID' => $request->agentID,
-            'totalcom' => $request->totalcom,
             'clientname' => $request->clientname,
-            'status' => 'Pending',
+            'totalcom' => $request->totalcom,
+            'status' => 'Pending', // Default status
+            'cardID' => $card->cardID,
+            'agentID' => $request->agentID,
+            'userID' => Auth::id(), // Set the userID to the currently logged-in user's ID
         ]);
 
         return redirect()->route('dashboardadmin')->with('success', 'Commission created successfully!');
@@ -53,6 +56,14 @@ class CommissionController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('dashboardowner')->with('success', 'Commission updated successfully!');
+        return redirect()->route('owner.dashboardowner')->with('success', 'Commission updated successfully!');
+    }
+
+    public function create()
+    {
+        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); // Fetch distinct bank types
+        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); // Fetch distinct card types
+
+        return view('admin.create_commission', compact('banktypes', 'cardtypes'));
     }
 }

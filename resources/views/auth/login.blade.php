@@ -13,13 +13,16 @@
         </div>
     @endif
     <form action="{{ route('login') }}" method="POST">
-        @csrf
+        @csrf <!-- This is required to include the CSRF token -->
+        
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" name="username" id="username" required>
         <br>
+
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" name="password" id="password" required>
         <br>
+
         <button type="submit">Login</button>
     </form>
 </body>

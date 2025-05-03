@@ -14,7 +14,7 @@ class OwnerController extends Controller
         $users = User::whereIn('position', ['Admin', 'UnitManager'])->get();
         $agents = Agent::with('commissions')->get();
 
-        return view('dashboardowner', compact('commissions', 'users', 'agents'));
+        return view('owner.dashboardowner', compact('commissions', 'users', 'agents'));
     }
 
     public function updateCommissionStatus(Request $request)
@@ -28,6 +28,6 @@ class OwnerController extends Controller
         $commission->status = $request->status;
         $commission->save();
 
-        return redirect()->route('dashboardowner')->with('success', 'Commission status updated successfully!');
+        return redirect()->route('owner.dashboardowner')->with('success', 'Commission status updated successfully!');
     }
 }

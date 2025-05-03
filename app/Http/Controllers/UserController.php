@@ -22,7 +22,7 @@ class UserController extends Controller
             'position' => $request->position,
         ]);
 
-        return redirect()->route('dashboardowner')->with('success', 'User created successfully!');
+        return redirect()->route('owner.dashboardowner')->with('success', 'User created successfully!');
     }
 
     public function edit(User $user)
@@ -45,6 +45,6 @@ class UserController extends Controller
         $user->position = $request->position;
         $user->save();
 
-        return redirect()->route('dashboardowner')->with('success', 'User updated successfully!');
+        return redirect()->route('owner.dashboardowner')->with('success', 'User updated successfully!');
     }
 }

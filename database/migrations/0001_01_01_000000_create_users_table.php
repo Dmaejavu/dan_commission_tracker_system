@@ -49,6 +49,12 @@ return new class extends Migration
             $table->enum('banktype', ['BDO', 'BPI', 'CBC']);
             $table->enum('cardtype', ['Silver', 'Gold', 'Platinum']);
         });
+
+        // Add cardID to commissions table
+        Schema::table('commissions', function (Blueprint $table) {
+            $table->integer('cardID')->nullable()->after('status'); // Use integer instead of unsignedBigInteger
+            $table->foreign('cardID')->references('cardID')->on('cards')->onDelete('cascade'); // Set as foreign key
+        });
     }
 
     /**
@@ -56,6 +62,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('commissions', function (Blueprint $table) {
+            if (Schema::hasColumn('commissions', 'cardID')) {
+                $table->dropForeign(['cardID']); // Drop foreign key
+                $table->dropColumn('cardID'); // Drop column
+            }
+        });
+        
         Schema::dropIfExists('cards');
         Schema::dropIfExists('commissions');
         Schema::dropIfExists('agents');

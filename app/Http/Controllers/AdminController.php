@@ -1,16 +1,26 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Agent;
+use Illuminate\Http\Request;
+use App\Models\Card;
 use App\Models\Commission;
+use App\Models\Agent;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-        $agents = Agent::all(); // Fetch all agents
-        $commissions = Commission::with('user', 'agent')->get(); // Fetch all commissions with relationships
+        // Fetch distinct bank types and card types from the cards table
+        $banktypes = Card::select('banktype')->distinct()->pluck('banktype');
+        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype');
 
-        return view('dashboardadmin', compact('agents', 'commissions'));
+        // Fetch all agents
+        $agents = Agent::all();
+
+        // Fetch all commissions with related data
+        $commissions = Commission::with('user', 'agent', 'card')->get();
+
+        // Pass the data to the view
+        return view('admin.dashboardadmin', compact('banktypes', 'cardtypes', 'agents', 'commissions'));
     }
 }
