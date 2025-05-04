@@ -4,26 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    @vite('resources/css/app.css')
 </head>
 <body>
-    <h1>Login</h1>
-    @if ($errors->any())
-        <div>
-            <strong>{{ $errors->first('login') }}</strong>
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-imgDIV">
+                <img class="w-75" src="{{ asset('images/logo.jpg') }}" alt="Logo" class="login-img">
+            </div>
+            <h1>Login</h1>
+            @if ($errors->any())
+                <div>
+                    <strong>{{ $errors->first('login') }}</strong>
+                </div>
+            @endif
+            <div class="login-form">
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf <!-- This is required to include the CSRF token -->
+                
+                <div class="flex flex-col">
+                    <label for="username">Username:</label>
+                    <input class="input-form" type="text" name="username" id="username" required>
+                </div>
+            
+                <div class="flex flex-col">
+                    <label for="password">Password:</label>
+                    <input class="input-form" type="password" name="password" id="password" required>
+                </div>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
         </div>
-    @endif
-    <form action="{{ route('login') }}" method="POST">
-        @csrf <!-- This is required to include the CSRF token -->
-        
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
-        <br>
-
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <br>
-
-        <button type="submit">Login</button>
-    </form>
+    </div>
 </body>
 </html>
