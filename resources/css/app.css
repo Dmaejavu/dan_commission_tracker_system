@@ -9,3 +9,131 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* LOG IN CSS */
+
+.login-wrapper {
+    @apply flex flex-col items-center justify-center w-screen h-screen bg-gray-500 
+}
+
+.login-container{
+    @apply flex flex-col items-center justify-center w-full max-w-md p-6 bg-gray-700 border border-gray-400 rounded-lg shadow-md
+}
+
+.login-container h1, label{
+    @apply text-white
+}
+
+.login-container button{
+    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-3 py-2 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-105 hover:shadow-gray-900 active:scale-95 active:bg-green-400 
+}
+
+.login-container h1{
+    @apply text-2xl font-bold text-left border-0 mt-3 mb-2
+}
+
+.login-form{
+    @apply pr-3 pl-3 w-full flex flex-col justify-center
+}
+
+.input-form{
+    @apply mt-1 mb-1 mr-1 ml-1 bg-white rounded-md px-2 py-0.5 focus:ring focus:ring-gray-700
+}
+
+/* LOG IN CSS */
+
+/* GENERAL CSS */
+
+.wrapper{
+    @apply flex flex-col w-screen h-screen overflow-x-hidden overflow-y-scroll
+}
+
+.header{
+    @apply flex items-center justify-between sticky w-full h-max bg-gray-800 top-0 z-50
+}
+
+.header h1{
+    @apply border-none p-0 
+}
+
+.leftHeader{
+    @apply mt-2 mb-2 flex items-center gap-4 justify-start w-1/2 h-full text-white text-4xl
+}
+
+.sidebar{
+    @apply flex flex-col justify-start w-1/8 h-screen bg-red-900 text-white fixed
+}
+
+.sidebar-content{
+    @apply mt-6
+}
+
+.sidebar-content nav{
+    @apply flex flex-col justify-start w-full h-full gap-4
+}
+
+.sidebar-content nav button{
+    @apply mr-1 ml-1 text-left bg-inherit text-gray-200 rounded-md px-3 py-2 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:bg-gray-800 hover:translate-x-0.5 hover:shadow-black active:scale-95 active:bg-gray-700 
+}
+
+.sidebar-content small{
+    @apply border-b-1 border-gray-600 text-sm mt-2 mr-2 ml-2 pb-1
+}
+
+.sidebar-section{
+    @apply flex flex-col mb-1 p-0 w-auto gap-2 text-left
+}
+
+.content{
+    @apply flex flex-col w-full h-screen bg-gray-100 text-black ml-48 p-4 overflow-y-scroll
+}
+
+.content h1{
+    @apply text-2xl font-bold text-left mb-4 border-b-1 border-gray-300
+}
+
+table{
+    @apply w-7/8 h-full border-collapse border border-gray-300 p-4
+    /* width is calculated from sidebar cause sidebar is 1/8. me smart, dan smart, gelo stoopid */
+}
+
+table th{
+    @apply bg-gray-200 text-gray-800 font-bold text-left p-2 border-b-1 border-gray-300
+}
+
+table td{
+    @apply bg-white text-gray-800 p-2 border-b-1 border-gray-300
+}
+
+.bigDIV{
+    @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 mb-4 p-4 rounded-md shadow-xl
+}
+
+.bigDIV button{
+    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-2 py-1 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-105 hover:shadow-gray-900 active:scale-95 active:bg-green-400 
+}
+
+.bigDIV select{
+    @apply mt-1 mb-1 mr-1 ml-1 bg-gray-50 border-2 border-gray-100 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-700
+}
+
+.bigDIV input{
+    @apply mt-1 mb-1 mr-1 ml-1 bg-gray-50 border-2 border-gray-400 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-700
+}
+
+h2{
+    @apply text-2xl font-bold text-left mb-4 border-b-1 border-gray-300
+}
+
+h1{
+    @apply text-3xl font-bold text-left mb-4 border-b-1 border-gray-300
+}
+
+.medDIV{
+    @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 p-4
+}
+
+.medDIV label{
+    @apply font-bold text-left text-black mb-4 
+}
+/* GENERAL CSS */

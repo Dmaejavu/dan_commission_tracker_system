@@ -6,7 +6,11 @@
     <title>Edit Commission</title>
 </head>
 <body>
-    <h1>Edit Commission</h1>
+
+    <div class="wrapper">
+        <!-- watt, lemme cook -Dan the man -->
+    </div>
+    <h1>Edit my ass Commission</h1>
 
     <form action="{{ route('commissions.update', $commission->comID) }}" method="POST">
         @csrf
