@@ -11,7 +11,7 @@ use App\Http\Controllers\AgentController;
 
 // Default route for login
 Route::get('/', function () {
-    return view('auth.login'); // Points to resources/views/auth/login.blade.php
+    return view('auth.login'); 
 });
 
 // Authentication routes
@@ -29,18 +29,18 @@ Route::middleware(['auth'])->group(function () {
     // Owner dashboard
     Route::get('/dashboardowner', [OwnerController::class, 'dashboard'])->name('dashboardowner');
 
-    // Commission routes
+    // Commission 
     Route::get('/commissions/create', [CommissionController::class, 'create'])->name('commissions.create');
     Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
     Route::get('/commissions/{commission}/edit', [CommissionController::class, 'edit'])->name('commissions.edit'); 
     Route::put('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
 
-    // User routes
+    // User 
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); 
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
-    // Agent routes
+    // Agent 
     Route::post('/agents', [AgentController::class, 'store'])->name('agents.store');
     Route::get('/agents/{agent}/edit', [AgentController::class, 'edit'])->name('agents.edit'); 
     Route::put('/agents/{agent}', [AgentController::class, 'update'])->name('agents.update');

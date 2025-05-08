@@ -18,8 +18,8 @@
     <table border="1">
         <thead>
             <tr>
-                <th>Commission ID</th>
-                <th>User</th>
+                <th>ID</th>
+                <th>Admin</th>
                 <th>Agent</th>
                 <th>Client Name</th>
                 <th>Status</th>
