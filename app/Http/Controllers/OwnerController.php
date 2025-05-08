@@ -10,17 +10,11 @@ class OwnerController extends Controller
 {
     public function dashboard()
     {
-        // Fetch all users
-        $users = User::all();
+        $users = User::where('position', '!=', 'Owner')->get(); // Exclude users with the Owner role
+        $commissions = Commission::all();
+        $agents = Agent::all();
 
-        // Fetch all agents
-        $agents = Agent::with('commissions')->get();
-
-        // Fetch all commissions with related user, agent, and card data
-        $commissions = Commission::with('user', 'agent', 'card')->get();
-
-        // Pass the data to the view
-        return view('owner.dashboardowner', compact('users', 'agents', 'commissions'));
+        return view('owner.dashboardowner', compact('users', 'commissions', 'agents'));
     }
 
     public function updateCommissionStatus(Request $request)
@@ -34,6 +28,6 @@ class OwnerController extends Controller
         $commission->status = $request->status;
         $commission->save();
 
-        return redirect()->route('owner.dashboardowner')->with('success', 'Commission status updated successfully!');
+        return redirect()->route('dashboardowner')->with('success', 'Commission status updated successfully!');
     }
 }

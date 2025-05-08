@@ -56,7 +56,7 @@ class CommissionController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('owner.dashboardowner')->with('success', 'Commission updated successfully!');
+        return redirect()->route('dashboardowner')->with('success', 'Commission updated successfully!');
     }
 
     public function create()

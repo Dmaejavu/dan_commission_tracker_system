@@ -10,30 +10,20 @@ class Commission extends Model
 
     protected $fillable = ['userID', 'agentID', 'totalcom', 'clientname', 'status', 'cardID'];
 
-    protected $primaryKey = 'comID'; // Define the custom primary key
+    protected $primaryKey = 'comID'; 
 
-    public $incrementing = true; // Ensure the primary key is auto-incrementing
-    protected $keyType = 'int'; // Define the primary key type
-
-    /**
-     * Define the relationship to the Card model.
-     */
+    public $incrementing = true; 
+    protected $keyType = 'int'; 
     public function card()
     {
         return $this->belongsTo(Card::class, 'cardID', 'cardID');
     }
 
-    /**
-     * Define the relationship to the Agent model.
-     */
     public function agent()
     {
         return $this->belongsTo(Agent::class, 'agentID', 'agentID');
     }
 
-    /**
-     * Define the relationship to the User model.
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'userID', 'userID');

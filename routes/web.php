@@ -19,6 +19,10 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// User management routes (bypassing authentication for creating users)
+Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+
+// Other routes requiring authentication
 Route::middleware(['auth'])->group(function () {
     // Admin dashboard
     Route::get('/dashboardadmin', [AdminController::class, 'dashboard'])->name('dashboardadmin');
@@ -35,9 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/commissions/{commission}/edit', [CommissionController::class, 'edit'])->name('commissions.edit'); 
     Route::put('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
 
-    // User 
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); 
+    // User management routes
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
     // Agent 

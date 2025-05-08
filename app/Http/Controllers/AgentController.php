@@ -21,7 +21,7 @@ class AgentController extends Controller
             'area' => $request->area,
         ]);
 
-        return redirect()->route('owner.dashboardowner')->with('success', 'Agent created successfully!');
+        return redirect()->route('dashboardowner')->with('success', 'Agent created successfully!');
     }
 
     public function edit(Agent $agent)
@@ -43,6 +43,6 @@ class AgentController extends Controller
             'area' => $request->area,
         ]);
 
-        return redirect()->route('owner.dashboardowner')->with('success', 'Agent updated successfully!');
+        return redirect()->route('dashboardowner')->with('success', 'Agent updated successfully!');
     }
 }

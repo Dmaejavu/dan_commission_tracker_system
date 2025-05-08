@@ -73,8 +73,32 @@
         </table>
     </div>
 
-    {{-- Manage USER--}}
+    {{-- Manage USER --}}
     <div id="ManageUser" style="display: none;">
+        {{-- Create User --}}
+        <h1>Manage Users</h1>
+        <div class="bigDIV">
+            <h1>Create User</h1>
+            <div class="medDIV">
+                <form action="{{ route('users.store') }}" method="POST">
+                    @csrf
+                    <label for="username">Username:</label>
+                    <input class="input-form" type="text" name="username" id="username" required>
+                    <br>
+                    <label for="password">Password:</label>
+                    <input class="input-form" type="password" name="password" id="password" required>
+                    <br>
+                    <label for="position">Position:</label>
+                    <select class="input-form" name="position" id="position" required>
+                        <option value="Admin">Admin</option>
+                        <option value="UnitManager">Unit Manager</option>
+                    </select>
+                    <br>
+                    <button type="submit">Create User</button>
+                </form>
+            </div>
+        </div> <!-- End of bigDIV -->
+        {{-- User Table --}}
         <h1>User</h1>
         <table border="1">
             <thead>
@@ -86,13 +110,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($users->where('position', '!=', 'Owner') as $user) <!-- Exclude users with the Owner role -->
                 <tr>
                     <td>{{ $user->userID }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->position }}</td>
                     <td>
+                        @can('edit', $user) <!-- Check if the user has permission to edit -->
                         <a href="{{ route('users.edit', $user->userID) }}">Edit</a>
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

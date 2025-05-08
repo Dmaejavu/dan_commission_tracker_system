@@ -22,11 +22,11 @@ class AuthController extends Controller
             $user = Auth::user();
             switch ($user->position) {
                 case 'Admin':
-                    return redirect('/dashboardadmin');
+                    return redirect()->route('dashboardadmin'); // Admin dashboard
                 case 'Owner':
-                    return redirect('/dashboardowner');
+                    return redirect()->route('dashboardowner'); // Owner dashboard
                 case 'UnitManager':
-                    return redirect('/dashboardunitmanager');
+                    return redirect()->route('dashboardunitmanager'); // Unit Manager dashboard
                 default:
                     return back()->withErrors(['login' => 'Invalid role.']);
             }

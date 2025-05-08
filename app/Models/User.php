@@ -9,10 +9,12 @@ class User extends Authenticatable
 {
     use HasFactory;
 
-    protected $primaryKey = 'userID'; // Define the custom primary key
+    protected $primaryKey = 'userID'; 
     public $incrementing = true;
     protected $keyType = 'int';
 
     protected $fillable = ['username', 'password', 'position'];
+
+    public $timestamps = false; 
 }
 
