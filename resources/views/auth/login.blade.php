@@ -10,7 +10,7 @@
     <div class="login-wrapper">
         <div class="login-container">
             <div class="login-imgDIV">
-                <img class="w-75" src="{{ asset('images/logo.jpg') }}" alt="Logo" class="login-img">
+                <img class="w-75" src="{{ asset('images/ezd-logo.jpg') }}" alt="Logo" class="login-img">
             </div>
             <h1>Login</h1>
             @if ($errors->any())
@@ -22,14 +22,14 @@
                 <form action="{{ route('login') }}" method="POST">
                     @csrf <!-- This is required to include the CSRF token -->
                 
-                <div class="flex flex-col">
+                <div class="flex flex-col mb-2">
                     <label for="username">Username:</label>
-                    <input class="input-form" type="text" name="username" id="username" required>
+                    <input class="input-form" type="text" name="username" placeholder="Username" id="username" required>
                 </div>
             
-                <div class="flex flex-col">
+                <div class="flex flex-col mb-1">
                     <label for="password">Password:</label>
-                    <input class="input-form" type="password" name="password" id="password" required>
+                    <input class="input-form" type="password" name="password" placeholder="Password" id="password" required>
                 </div>
 
                     <button type="submit">Login</button>

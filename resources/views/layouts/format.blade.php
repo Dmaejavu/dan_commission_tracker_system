@@ -10,7 +10,7 @@
     <div class="wrapper">
         <div class="header">
             <div class="leftHeader">
-                <img class="w-30" src="{{ asset('images/logo.jpg') }}" alt="Logo" class="header-img">
+                <img class="w-25" src="{{ asset('images/ezd-logo.jpg') }}" alt="Logo" class="header-img">
                 <h1>Owner Dashboard</h1>
             </div> <!-- End of leftHeader -->
 

@@ -1,19 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Manager Dashboard</title>
-</head>
-<body>
-    <h1>Unit Manager Dashboard</h1>
+@extends('layouts.format')
 
-    {{-- Logout Button --}}
-    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
+@section('content')
+
+<div class="sidebar">
+    <div class="sidebar-content">
+        {{-- Put nav tag here if u want to add things --}}
+        <div class="logoutDIV">
+            {{-- Logout Button --}}
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
     
+<div class="content">
     <h2>Commissions</h2>
     <table border="1">
         <thead>
@@ -39,5 +41,5 @@
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+</div>
+@endsection
