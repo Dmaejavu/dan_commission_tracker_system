@@ -23,13 +23,14 @@
                 <button onclick="showSection('ManageUser')">Users</button>
                 <button onclick="showSection('ManageAgent')">Agent</button>
             </div>
+        </nav>
+        <div class="logoutDIV">
             {{-- Logout Button --}}
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                 @csrf
                 <button type="submit">Logout</button>
             </form>
-
-        </nav>
+        </div>
     </div> <!-- End of sidebar-con -->
 
 </div> <!-- End of sidebar -->
@@ -82,24 +83,26 @@
             <div class="medDIV">
                 <form action="{{ route('users.store') }}" method="POST">
                     @csrf
-                    <label for="username">Username:</label>
-                    <input class="input-form" type="text" name="username" id="username" required>
-                    <br>
-                    <label for="password">Password:</label>
-                    <input class="input-form" type="password" name="password" id="password" required>
-                    <br>
-                    <label for="position">Position:</label>
-                    <select class="input-form" name="position" id="position" required>
-                        <option value="Admin">Admin</option>
-                        <option value="UnitManager">Unit Manager</option>
-                    </select>
-                    <br>
-                    <button type="submit">Create User</button>
+                    <div class="medDIV-forms">
+                        <label for="username">Username:</label>
+                        <input class="input-form" type="text" name="username" id="username" required>
+                        <br>
+                        <label for="password">Password:</label>
+                        <input class="input-form" type="password" name="password" id="password" required>
+                        <br>
+                        <label for="position">Position:</label>
+                        <select class="input-form" name="position" id="position" required>
+                            <option value="Admin">Admin</option>
+                            <option value="UnitManager">Unit Manager</option>
+                        </select>
+                        <br>
+                        <button type="submit">Create User</button>
+                    </div>
                 </form>
             </div>
         </div> <!-- End of bigDIV -->
         {{-- User Table --}}
-        <h1>User</h1>
+        <h1>Users</h1>
         <table border="1">
             <thead>
                 <tr>
@@ -133,16 +136,22 @@
             <div class="medDIV">
                 <form action="{{ route('agents.store') }}" method="POST">
                     @csrf
-                    <label for="agentname">Agent Name:</label>
-                    <input class="input-form" type="text" name="agentname" id="agentname" required>
-                    <br>
-                    <label for="comrate">Commission Rate:</label>
-                    <input class="input-form" type="number" step="0.01" name="comrate" id="comrate" required>
-                    <br>
-                    <label for="area">Area:</label>
-                    <input class="input-form" type="text" name="area" id="area" required>
-                    <br>
+                    <div class="medDIV-forms">
+                        <label for="agentname">Agent Name:</label>
+                        <input class="input-form" type="text" name="agentname" id="agentname" required>
+                        <br>
+                    </div>
+                    <div class="medDIV-forms">
+                        <label for="comrate">Commission Rate:</label>
+                        <input class="input-form" type="number" step="0.01" name="comrate" id="comrate" required>
+                        <br>
+                    </div>
+                    <div class="medDIV-forms">
+                        <label for="area">Area:</label>
+                        <input class="input-form" type="text" name="area" id="area" required>
+                        <br>
                     <button type="submit">Create Agent</button>
+                </div>
                 </form>
             </div>
         </div> <!-- End of bigDIV -->

@@ -13,39 +13,55 @@
 /* LOG IN CSS */
 
 .login-wrapper {
-    @apply flex flex-col items-center justify-center w-screen h-screen bg-gray-500 
+    @apply flex flex-col items-center justify-center w-screen h-screen bg-linear-to-b from-gray-500 to-gray-900 
 }
 
 .login-container{
-    @apply flex flex-col items-center justify-center w-full max-w-md p-6 bg-gray-700 border border-gray-400 rounded-lg shadow-md
+    @apply flex flex-col items-center justify-center w-full max-w-md p-6 bg-white border border-gray-400 rounded-lg shadow-md
 }
 
 .login-container h1, label{
-    @apply text-white
+    @apply text-black
 }
 
 .login-container button{
-    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-3 py-2 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-105 hover:shadow-gray-900 active:scale-95 active:bg-green-400 
+    @apply w-full my-2 bg-green-400 text-white rounded-md px-3 py-2 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-102 hover:shadow-gray-900 active:scale-95 active:bg-green-400 
 }
 
 .login-container h1{
-    @apply text-2xl font-bold text-left border-0 mt-3 mb-2
+    @apply text-4xl font-bold text-left border-0 mt-3 mb-2
 }
 
 .login-form{
-    @apply pr-3 pl-3 w-full flex flex-col justify-center
+    @apply px-3 w-full flex flex-col justify-center
 }
 
 .input-form{
-    @apply mt-1 mb-1 mr-1 ml-1 bg-white rounded-md px-2 py-0.5 focus:ring focus:ring-gray-700
+    @apply my-1 bg-white border-1 border-gray-900 rounded-md px-2 py-1 focus:ring focus:ring-gray-700
 }
 
 /* LOG IN CSS */
 
 /* GENERAL CSS */
 
+html{ 
+    @apply scroll-smooth
+}
+
+h2{
+    @apply text-2xl font-bold text-left mb-4 border-b-1 border-gray-300
+}
+
 .wrapper{
     @apply flex flex-col w-screen h-screen overflow-x-hidden overflow-y-scroll
+}
+
+.tempContent{
+    @apply flex flex-col items-center w-full h-screen overflow-x-hidden overflow-y-scroll text-black
+} /* i use dis, sometimes, murag siya, sometimes gina use niya ko kapag naa siya kailangan sa akoa..., */
+
+.container{ 
+    @apply w-screen h-screen flex flex-row 
 }
 
 .header{
@@ -57,7 +73,7 @@
 }
 
 .leftHeader{
-    @apply mt-2 mb-2 flex items-center gap-4 justify-start w-1/2 h-full text-white text-4xl
+    @apply my-2 ml-4 flex items-center gap-4 justify-start w-1/2 h-full text-white text-4xl font-bold
 }
 
 .sidebar{
@@ -65,7 +81,7 @@
 }
 
 .sidebar-content{
-    @apply mt-6
+    @apply flex flex-col justify-between gap-22 mt-6 
 }
 
 .sidebar-content nav{
@@ -84,16 +100,20 @@
     @apply flex flex-col mb-1 p-0 w-auto gap-2 text-left
 }
 
+.logoutDIV {
+    @apply mx-1 text-center bg-gray-900 text-gray-200 rounded-md px-3 py-2 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:bg-red-700 hover:translate-x-0.5 hover:shadow-black active:scale-95 active:bg-gray-700 
+}
+
 .content{
-    @apply flex flex-col w-full h-screen bg-gray-100 text-black ml-48 p-4 overflow-y-scroll
+    @apply flex flex-col w-full h-screen bg-gray-100 text-black ml-48 p-8 pb-10 overflow-y-scroll
 }
 
 .content h1{
-    @apply text-2xl font-bold text-left mb-4 border-b-1 border-gray-300
+    @apply text-4xl font-bold text-left mb-4 border-b-1 border-gray-300
 }
 
 table{
-    @apply w-7/8 h-full border-collapse border border-gray-300 p-4
+    @apply w-7/8 h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-hidden shadow-md
     /* width is calculated from sidebar cause sidebar is 1/8. me smart, dan smart, gelo stoopid */
 }
 
@@ -102,11 +122,11 @@ table th{
 }
 
 table td{
-    @apply bg-white text-gray-800 p-2 border-b-1 border-gray-300
+    @apply bg-white text-gray-800 w-max h-max p-4 border-b-1 border-gray-300
 }
 
 .bigDIV{
-    @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 mb-4 p-4 rounded-md shadow-xl
+    @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 mb-12 p-4 rounded-md shadow-xl
 }
 
 .bigDIV button{
@@ -121,19 +141,19 @@ table td{
     @apply mt-1 mb-1 mr-1 ml-1 bg-gray-50 border-2 border-gray-400 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-700
 }
 
-h2{
-    @apply text-2xl font-bold text-left mb-4 border-b-1 border-gray-300
-}
-
-h1{
-    @apply text-3xl font-bold text-left mb-4 border-b-1 border-gray-300
+.bigDIV h1 {
+    @apply text-2xl font-bold text-left pb-2 px-2 mb-2 border-b-1 border-gray-300
 }
 
 .medDIV{
     @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 p-4
 }
 
-.medDIV label{
-    @apply font-bold text-left text-black mb-4 
+.medDIV-forms label{
+    @apply font-bold text-left text-black 
+}
+
+.medDIV-forms{
+    @apply flex flex-col w-md
 }
 /* GENERAL CSS */
