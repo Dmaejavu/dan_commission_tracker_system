@@ -10,11 +10,36 @@ class OwnerController extends Controller
 {
     public function dashboard()
     {
-        $users = User::where('position', '!=', 'Owner')->get(); // Exclude users with the Owner role
-        $commissions = Commission::all();
-        $agents = Agent::all();
+        $totalCommissions = \App\Models\Commission::sum('totalcom');
+        $totalAgents = \App\Models\Agent::count();
 
-        return view('owner.dashboardowner', compact('users', 'commissions', 'agents'));
+        $topAgent = \App\Models\Agent::withSum('commissions', 'totalcom')
+            ->orderByDesc('commissions_sum_totalcom')
+            ->first();
+
+        $recentPendingCommissions = \App\Models\Commission::where('status', 'Pending')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        // Fetch Commissions
+        $commissions = \App\Models\Commission::with(['user', 'agent', 'card'])->get();
+
+        // Fetch Users 
+        $users = \App\Models\User::all();
+
+        // Fetch Agents 
+        $agents = \App\Models\Agent::all();
+
+        return view('owner.dashboardowner', compact(
+            'totalCommissions',
+            'totalAgents',
+            'topAgent',
+            'recentPendingCommissions',
+            'commissions',
+            'users', 
+            'agents' 
+        ));
     }
 
     public function updateCommissionStatus(Request $request)

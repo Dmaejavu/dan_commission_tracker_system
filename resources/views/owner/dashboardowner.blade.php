@@ -10,7 +10,6 @@
     <div class="sidebar-content">
         <nav>
             <div class="sidebar-section">
-                <small>Dashboard</small>
                 <button onclick="showSection('viewDashboard')">Dashboard</button>
             </div>
             <div class="sidebar-section">
@@ -36,11 +35,54 @@
 </div> <!-- End of sidebar -->
 
 <div class="content">
+    {{-- DashBoard --}}
+    <div id="viewDashboard" style="display: none;">
+        <h1>DASHBOARD</h1>
+        <div class="dashboard-cards">
+            <div class="card">
+                <h2>Total Commissions</h2>
+                <p>{{ $totalCommissions }}</p>
+            </div>
+            <div class="card">
+                <h2>Total Agents</h2>
+                <p>{{ $totalAgents }}</p>
+            </div>
+            <div class="card">
+                <h2>Top Performing Agent</h2>
+                <p>{{ $topAgent ? $topAgent->agentname : 'N/A' }}</p>
+            </div>
+        </div>
+        <h2>Pending Commissions</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Agent</th>
+                    <th>Client Name</th>
+                    <th>Total Commission</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($recentPendingCommissions as $commission)
+                <tr>
+                    <td>{{ $commission->comID }}</td>
+                    <td>{{ $commission->agent->agentname }}</td>
+                    <td>{{ $commission->clientname }}</td>
+                    <td>{{ $commission->totalcom }}</td>
+                    <td>{{ $commission->status }}</td>
+                    <td>{{ $commission->created_at }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
     {{-- View Commissions --}}
     <div id="viewCommissions" style="display: none;">
-
         <h1>View Commissions</h1>
-        <table> <!-- di ko sure why naa ni <table border="1"> but ibalik lang kung unsa, gi replace nako eh -->
+        <table border="1">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -113,13 +155,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users->where('position', '!=', 'Owner') as $user) <!-- Exclude users with the Owner role -->
+                @foreach ($users->where('position', '!=', 'Owner') as $user) 
                 <tr>
                     <td>{{ $user->userID }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->position }}</td>
                     <td>
-                        @can('edit', $user) <!-- Check if the user has permission to edit -->
+                        @can('edit', $user)
                         <a href="{{ route('users.edit', $user->userID) }}">Edit</a>
                         @endcan
                     </td>
@@ -150,8 +192,8 @@
                         <label for="area">Area:</label>
                         <input class="input-form" type="text" name="area" id="area" required>
                         <br>
-                    <button type="submit">Create Agent</button>
-                </div>
+                        <button type="submit">Create Agent</button>
+                    </div>
                 </form>
             </div>
         </div> <!-- End of bigDIV -->
@@ -206,11 +248,16 @@
 
     <script>
         function showSection(sectionId) {
-            const sections = ['viewCommissions', 'ManageUser', 'ManageAgent', 'viewTotalCommissions'];
+            const sections = ['viewDashboard', 'viewCommissions', 'ManageUser', 'ManageAgent', 'viewTotalCommissions'];
             sections.forEach(id => {
                 document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
             });
         }
+
+        // DEFAULT SECTION
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('viewDashboard');
+        });
     </script>
 
 </div> <!-- End of content -->
