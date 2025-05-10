@@ -3,13 +3,18 @@
 @section( 'content')
     <div class="tempContent">
         <div class="bigDIV mt-14 w-max">
-            <h1>Edit Commission</h1>   
+            <div class="flex flex-row w-full h-full">
+                <a href="{{ route('dashboardowner') }}">
+                <img class="h-4/8 transistion ease-in-out duration-150 hover:scale-110 hover:cursor-pointer" src="{{ asset('images/icons8-back-64.png') }}" alt="Logo" class="back-img"
+                title="Back to Commissions"> </a>
+                <h1 class="w-full">Edit Commission</h1>   
+            </div>
+            
             <div class="medDIV">
-                <div class="medDIV-forms">
                 <form action="{{ route('commissions.update', $commission->comID) }}" method="POST">
                     @csrf
                     @method('PUT')
-
+                <div class="medDIV-forms">
                     <label for="totalcom">Total Commission:</label>
                     <input type="number" step="0.01" name="totalcom" id="totalcom" value="{{ $commission->totalcom }}" required>
                     <br>
@@ -26,8 +31,9 @@
                         <option value="Canceled" {{ $commission->status === 'Canceled' ? 'selected' : '' }}>Canceled</option>
                     </select>
                     <br>
-
-                    <button type="submit">Update Commission</button>
+                    <div class="flex flex-col items-center justify-center">
+                        <button type="submit">Update Commission</button>
+                    </div>
                 </form>
                 </div>
             </div>

@@ -15,7 +15,7 @@
             </div> <!-- End of leftHeader -->
 
             <div class="rightHeader">
-                
+                Bayot Paul 
             </div> <!-- End of rightHeader -->
 
         </div> <!-- End of header -->
