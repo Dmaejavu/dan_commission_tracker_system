@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // User table
         Schema::create('users', function (Blueprint $table) {
-            $table->integer('userID')->primary(); 
+            $table->integer('userID')->primary()->autoIncrement(); 
             $table->string('username', 16);
             $table->string('password', 60);
             $table->enum('position', ['Admin', 'Owner', 'UnitManager']);
