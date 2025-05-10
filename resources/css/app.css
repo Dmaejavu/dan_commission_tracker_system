@@ -57,8 +57,10 @@ h2{
 }
 
 .tempContent{
-    @apply flex flex-col items-center w-full h-screen overflow-x-hidden overflow-y-scroll text-black
-} /* i use dis, sometimes, murag siya, sometimes gina use niya ko kapag naa siya kailangan sa akoa..., */
+    @apply flex flex-col items-center px-130 w-full h-screen overflow-x-hidden overflow-y-scroll text-black
+}   /* future dan, px is the thing that will define the size of the bigDIV, rememberr*/ 
+/* i use dis, sometimes, murag siya, sometimes gina use niya ko kapag naa siya kailangan sa akoa..., */
+
 
 .container{ 
     @apply w-screen h-screen flex flex-row 
@@ -76,8 +78,12 @@ h2{
     @apply my-2 ml-4 flex items-center gap-4 justify-start w-1/2 h-full text-white text-4xl font-bold
 }
 
+.rightHeader{
+    @apply my-2 mr-4 flex items-center gap-4 justify-end w-1/2 h-full text-white text-4xl font-bold
+}
+
 .sidebar{
-    @apply flex flex-col justify-start w-1/8 h-screen bg-red-900 text-white fixed
+    @apply flex flex-col font-light justify-start w-1/8 h-screen bg-white text-gray-800 fixed shadow-2xl
 }
 
 .sidebar-content{
@@ -89,11 +95,15 @@ h2{
 }
 
 .sidebar-content nav button{
-    @apply mr-1 ml-1 text-left bg-inherit text-gray-200 rounded-md px-3 py-2 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:bg-gray-800 hover:translate-x-0.5 hover:shadow-black active:scale-95 active:bg-gray-700 
+    @apply mr-1 ml-1 text-left bg-inherit text-gray-700 rounded-md px-3 py-2 transition duration-300 ease-in-out hover:translate-x-0.5 hover:bg-red-900 hover:text-white active:scale-95 active:bg-red-700
+}
+
+.sidebarButt.active{
+    @apply bg-red-900
 }
 
 .sidebar-content small{
-    @apply border-b-1 border-gray-600 text-sm mt-2 mr-2 ml-2 pb-1
+    @apply border-b-1 border-gray-400 font-extralight text-sm mt-2 mr-2 ml-2 pb-1
 }
 
 .sidebar-section{
@@ -112,25 +122,53 @@ h2{
     @apply text-4xl font-bold text-left mb-4 border-b-1 border-gray-300
 }
 
+.card{
+    @apply flex flex-col justify-center items-center gap-4 w-1/4 h-36 bg-gray-700 text-white ml-0 mb-12 p-4 rounded-xl shadow-md
+}
+
+.dashboard-cards{
+    @apply flex flex-row justify-around mt-6
+}
+
+.card h2{
+    @apply w-full text-center text-3xl mb-0 pb-1.5 gap-0 border-b border-b-gray-600 hover:cursor-default
+}
+
+.card p{
+    @apply text-lg hover:cursor-default
+}
+
 table{
-    @apply w-7/8 h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-hidden shadow-md
+    @apply w-full h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-hidden shadow-md
     /* width is calculated from sidebar cause sidebar is 1/8. me smart, dan smart, gelo stoopid */
 }
 
+table a{
+    @apply bg-gray-50 shadow-sm px-3 py-2 rounded-md text-blue-500 transition ease-in-out duration-150
+}
+
+table a:hover{
+    @apply text-blue-700 scale-130 shadow-md
+}
+
 table th{
-    @apply bg-gray-200 text-gray-800 font-bold text-left p-2 border-b-1 border-gray-300
+    @apply bg-gray-300 text-gray-800 font-bold text-left py-4 px-3 border-b-1 border-gray-400
 }
 
 table td{
-    @apply bg-white text-gray-800 w-max h-max p-4 border-b-1 border-gray-300
+    @apply bg-white text-gray-800 w-max h-max p-4
+}
+
+table tr{
+    @apply border-b-1 border-gray-300
 }
 
 .bigDIV{
-    @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 mb-12 p-4 rounded-md shadow-xl
+    @apply flex flex-col w-full h-max bg-white text-black ml-0 mb-12 p-4 rounded-md shadow-xl
 }
 
 .bigDIV button{
-    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-2 py-1 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-105 hover:shadow-gray-900 active:scale-95 active:bg-green-400 
+    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-2 py-1 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-103 hover:shadow-gray-300 hover:shadow-md active:scale-95 active:bg-green-400 
 }
 
 .bigDIV select{
@@ -146,7 +184,15 @@ table td{
 }
 
 .medDIV{
-    @apply flex flex-col w-7/8 h-max bg-white text-black ml-0 p-4
+    @apply flex flex-col w-full h-max bg-white text-black ml-0 p-4
+}
+
+.medDIV-forms select{
+    @apply w-4/8
+}
+
+.medDIV-forms button{
+    @apply w-6/8
 }
 
 .medDIV-forms label{
@@ -154,6 +200,6 @@ table td{
 }
 
 .medDIV-forms{
-    @apply flex flex-col w-md
+    @apply flex flex-col content-center w-full
 }
 /* GENERAL CSS */
