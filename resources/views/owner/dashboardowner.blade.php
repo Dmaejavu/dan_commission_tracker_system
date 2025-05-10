@@ -184,7 +184,7 @@
                         <br>
                     </div>
                     <div class="medDIV-forms">
-                        <label for="comrate">Commission Rate:</label>
+                        <label for="comrate">Commission Rate (%):</label>
                         <input class="input-form" type="number" step="0.01" name="comrate" id="comrate" required>
                         <br>
                     </div>
@@ -213,7 +213,7 @@
                 <tr>
                     <td>{{ $agent->agentID }}</td>
                     <td>{{ $agent->agentname }}</td>
-                    <td>{{ $agent->comrate }}</td>
+                    <td>{{ $agent->comrate * 100 }}%</td>
                     <td>{{ $agent->area }}</td>
                     <td>
                         <a href="{{ route('agents.edit', $agent->agentID) }}">Edit</a>

@@ -11,13 +11,13 @@ class AgentController extends Controller
     {
         $request->validate([
             'agentname' => 'required|string|max:50',
-            'comrate' => 'required|numeric|min:0|max:1', // Commission rate as a percentage (e.g., 0.1 for 10%)
+            'comrate' => 'required|numeric|min:0|max:100', 
             'area' => 'required|string|max:50',
         ]);
 
         Agent::create([
             'agentname' => $request->agentname,
-            'comrate' => $request->comrate,
+            'comrate' => $request->comrate / 100,
             'area' => $request->area,
         ]);
 
@@ -33,13 +33,13 @@ class AgentController extends Controller
     {
         $request->validate([
             'agentname' => 'required|string|max:50',
-            'comrate' => 'required|numeric|min:0|max:1', // Commission rate as a percentage (e.g., 0.1 for 10%)
+            'comrate' => 'required|numeric|min:0|max:100',
             'area' => 'required|string|max:50',
         ]);
 
         $agent->update([
             'agentname' => $request->agentname,
-            'comrate' => $request->comrate,
+            'comrate' => $request->comrate / 100,
             'area' => $request->area,
         ]);
 
