@@ -86,7 +86,12 @@
 
     {{-- View Commissions --}}
     <div id="viewCommissions" style="display: none;">
+        <div class="w-full h-max flex flex-row items-center justify-between border-b-1 border-gray-300">
         <h1>View Commissions</h1>
+            <button class="w-8 h-8 flex items-center justify-center bg-gray-300 shadow-sm rounded-md transition ease-in-out duration-150 hover:shadow-md hover:scale-102 hover:bg-gray-400" onclick="showSection('createCommission')">
+                <img class="w-auto h-5" src="{{ asset('images/icons8-plus-24.png') }}" alt="Logo" class="header-img">
+            </button>
+        </div>
         <table border="1">
             <thead>
                 <tr>
