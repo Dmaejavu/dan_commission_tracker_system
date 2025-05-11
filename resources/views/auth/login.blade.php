@@ -10,7 +10,7 @@
     <div class="login-wrapper">
         <div class="login-container">
             <div class="login-imgDIV">
-                <img class="w-75" src="{{ asset('images/ezd-logo.jpg') }}" alt="Logo" class="login-img">
+                <img class="w-75" src="{{ asset('images/ezd-logo.png') }}" alt="Logo" class="login-img">
             </div>
             <h1>Login</h1>
             @if ($errors->any())
