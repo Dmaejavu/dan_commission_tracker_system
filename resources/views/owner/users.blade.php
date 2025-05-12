@@ -8,8 +8,15 @@
         {{-- Create User --}}
         <h1>Manage Users</h1>
         <div class="bigDIV">
-            <h1>Create User</h1>
-            <div class="medDIV">
+            <div class="w-full h-max flex flex-row items-center justify-between border-b-1 border-gray-300">
+                <h1>Create User</h1>
+                <img class="w-6 transition ease-in-out duration-300 hover:cursor-pointer hover:scale-115" src="{{ asset('images/icons8-expand-arrow-100.png') }}" 
+                alt="expand" class="expand-img"
+                onclick="showContent()"
+                >
+            </div>
+            
+            <div id="medDIV-content" class="medDIV-hidden">
                 <form action="{{ route('users.store') }}" method="POST">
                     @csrf
                     <div class="w-3/8">
@@ -32,10 +39,21 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> <!-- End of medDIV -->
+            <script>
+                const medDIVContent = document.getElementById('medDIV-content');
+
+                function showContent() {
+                    if (medDIVContent.style.display === 'flex') {
+                        medDIVContent.style.display = 'none';
+                    } else {
+                        medDIVContent.style.display = 'flex';
+                    }
+                }
+            </script>
         </div> <!-- End of bigDIV -->
         {{-- User Table --}}
-        <h1>Users</h1>
+        <h2>Users</h2>
         <table border="1">
             <thead>
                 <tr>

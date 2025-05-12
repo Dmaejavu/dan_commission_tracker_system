@@ -49,7 +49,7 @@ html{
 }
 
 h2{
-    @apply text-2xl font-bold text-left mb-4 border-b-1 border-gray-300
+    @apply text-2xl font-bold text-left pb-2 mb-4 border-b-1 border-gray-300
 }
 
 .wrapper{
@@ -91,23 +91,27 @@ h2{
 }
 
 .sidebar{
-    @apply flex flex-col font-light justify-start w-1/8 h-screen bg-white text-gray-800 fixed shadow-2xl
+    @apply flex flex-col font-light justify-start w-1/8 h-screen bg-linear-to-b from-white from-60% to-gray-400 text-gray-800 fixed shadow-2xl
+}
+
+.imHere.active{
+    @apply text-white font-bold bg-linear-to-r from-red-900 from-5% to-red-700
 }
 
 .sidebar-content{
-    @apply flex flex-col justify-between gap-22 mt-6 
+    @apply flex flex-col justify-between gap-22 mt-6
 }
 
 .sidebar-content nav{
     @apply flex flex-col justify-start w-full h-full gap-4
 }
 
-.sidebar-content nav button{
-    @apply mr-1 ml-1 text-left bg-inherit text-gray-700 rounded-md px-3 py-2 transition duration-300 ease-in-out hover:translate-x-0.5 hover:bg-red-900 hover:text-white active:scale-95 active:bg-red-700
+.sidebar-section a{
+    @apply mr-1 ml-1 text-left bg-inherit text-gray-700 rounded-md px-3 py-2 transition duration-300 ease-in-out hover:translate-x-0.5 hover:bg-linear-to-r from-red-900 from-5% to-red-700 hover:text-white active:scale-95 active:bg-red-700
 }
 
-.sidebarButt.active{
-    @apply bg-red-900
+.sidebar-section button{
+    @apply mr-1 ml-1 text-left bg-inherit text-gray-700 rounded-md px-3 py-2 transition duration-300 ease-in-out hover:translate-x-0.5 hover:bg-linear-to-r from-red-900 from-5% to-red-700 hover:text-white active:scale-95 active:bg-red-700
 }
 
 .sidebar-content small{
@@ -135,7 +139,7 @@ h2{
 }
 
 .card{
-    @apply flex flex-col justify-center items-center gap-4 w-1/4 h-36 bg-gray-700 text-white ml-0 mb-12 p-4 rounded-xl shadow-md
+    @apply flex flex-col justify-center items-center gap-4 w-1/4 h-36 bg-linear-to-b from-gray-700 to-gray-800 text-white ml-0 mb-12 p-4 rounded-xl shadow-md
 }
 
 .dashboard-cards{
@@ -184,7 +188,7 @@ table tr{
 }
 
 .bigDIV select{
-    @apply mt-1 mb-1 mr-1 ml-1 bg-gray-50 border-2 border-gray-100 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-700
+    @apply mt-1 mb-1 mr-1 ml-1 bg-gray-100 border-2 border-gray-200 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-700
 }
 
 .bigDIV input{
@@ -192,11 +196,23 @@ table tr{
 }
 
 .bigDIV h1 {
-    @apply text-2xl font-bold text-left pb-2 px-2 mb-2 border-b-1 border-gray-300
+    @apply text-2xl font-bold text-left pb-2 px-2 mb-2
 }
 
 .medDIV{
     @apply flex flex-col w-full h-max bg-white text-black ml-0 p-4
+}
+
+.medDIV-hidden {
+    @apply hidden flex-col w-full h-max bg-white text-black ml-0 p-4 transition duration-150 ease-in-out
+}
+
+.medDIV-hidden select{
+    @apply w-4/8
+}
+
+.medDIV-hidden button{
+    @apply w-6/8
 }
 
 .medDIV-forms select{

@@ -1,8 +1,8 @@
 @extends('layouts.format')
 @section('content')
 {{-- Include the sidebar --}}
-@include('owner.sidebar')
 
+@include('owner.sidebar')
 <div class="content">
     {{-- Dashboard --}}
     <div id="viewDashboard" style="display: block;">
