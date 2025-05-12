@@ -5,6 +5,8 @@
 <div class="content">
     <div id="ManageAgent" style="display: block;">
         <h1>Manage Agents</h1>
+
+        {{-- Create Agent Form --}}
         <div class="bigDIV">
             <div class="w-full h-max flex flex-row items-center justify-between border-b-1 border-gray-300">
                 <h1>Create Agent</h1>
@@ -52,15 +54,17 @@
             </script>
         </div> <!-- End of bigDIV -->
         <h2>Agents</h2>
-                {{-- Search and Filter --}}
-            <div class="search-filter">
-                <form action="{{ route('agents.index') }}" method="GET">
-                    <input type="text" name="search" placeholder="Search Agent Name" value="{{ request('search') }}">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
+
+        {{-- Search and Filter --}}
+        <div class="search-filter">
+            <form action="{{ route('agents.index') }}" method="GET">
+                <input type="text" name="search" placeholder="Search Agent Name" value="{{ request('search') }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
 
         {{-- Agents Table --}}
+        
         <table border="1">
             <thead>
                 <tr>
@@ -87,4 +91,4 @@
         </table>
     </div>
 </div>
-    @endsection
+@endsection
