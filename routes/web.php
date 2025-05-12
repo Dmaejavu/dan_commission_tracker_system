@@ -8,6 +8,7 @@ use App\Http\Controllers\UnitManagerController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\OwnerCommissionController;
 
 // Default route for login
 Route::get('/', function () {
@@ -32,6 +33,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Owner dashboard
     Route::get('/dashboardowner', [OwnerController::class, 'dashboard'])->name('dashboardowner');
+    Route::get('/view-commissions', [OwnerController::class, 'viewCommissions'])->name('viewCommissions');
+    Route::get('/total-commissions', [OwnerController::class, 'viewTotalCommissions'])->name('totalCommissions');
+    Route::get('/manage-users', [OwnerController::class, 'manageUsers'])->name('manageUser');
+    Route::get('/manage-agents', [OwnerController::class, 'manageAgents'])->name('manageAgent');
+    Route::get('/create-commission', [OwnerCommissionController::class, 'createCommission'])->name('create_commission');
 
     // Commission 
     Route::get('/commissions/create', [CommissionController::class, 'create'])->name('commissions.create');
@@ -40,11 +46,17 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
 
     // User management routes
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('edit_users');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
     // Agent 
     Route::post('/agents', [AgentController::class, 'store'])->name('agents.store');
     Route::get('/agents/{agent}/edit', [AgentController::class, 'edit'])->name('agents.edit'); 
     Route::put('/agents/{agent}', [AgentController::class, 'update'])->name('agents.update');
+});
+
+Route::middleware(['auth', 'role:Owner'])->group(function () {
+    Route::post('/owner/commissions', [OwnerCommissionController::class, 'store'])->name('owner.commissions.store');
+    Route::get('/owner/commissions/{commission}/edit', [OwnerCommissionController::class, 'edit'])->name('owner.commissions.edit');
+    Route::put('/owner/commissions/{commission}', [OwnerCommissionController::class, 'update'])->name('owner.commissions.update');
 });

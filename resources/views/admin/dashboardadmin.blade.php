@@ -44,6 +44,7 @@
                             <div class="medDIV-forms">
                                 <label for="banktype">Bank Type:</label>
                                 <select name="banktype" id="banktype" required>
+                                    <option> --Choose-- </option>
                                     @foreach ($banktypes as $banktype)
                                         <option value="{{ $banktype }}">{{ $banktype }}</option>
                                     @endforeach
@@ -53,6 +54,7 @@
                             <div class="medDIV-forms">
                                 <label for="cardtype">Card Type:</label>
                                 <select name="cardtype" id="cardtype" required>
+                                    <option> --Choose-- </option>
                                     @foreach ($cardtypes as $cardtype)
                                         <option value="{{ $cardtype }}">{{ $cardtype }}</option>
                                     @endforeach
@@ -62,6 +64,7 @@
                             <div class="medDIV-forms">
                             <label for="agentID">Agent:</label>
                                 <select name="agentID" id="agentID" required>
+                                    <option> --Choose-- </option>
                                     @foreach ($agents as $agent)
                                         <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
                                     @endforeach
@@ -78,7 +81,7 @@
 
         {{-- View Commissions Table --}}
         <div id="viewCommissions" style="display: none;">
-            <h2>Existing Commissions</h2>
+            <h2>Commissions</h2>
             <table border="1">
                 <thead>
                     <tr>
@@ -121,6 +124,11 @@
                 document.getElementById('createCommission').style.display = 'none';
                 document.getElementById('viewCommissions').style.display = 'block';
             }
+
+            // Set the default view to showViewCommissions when the page loads
+            document.addEventListener('DOMContentLoaded', function () {
+                showViewCommissions();
+            });
         </script>
     </div> <!-- End of content -->
 @endsection

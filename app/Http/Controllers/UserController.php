@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $request->validate([
             'username' => 'required|string|max:50|unique:users,username',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:3',
             'position' => 'required|in:Admin,UnitManager', // Only Admin and UnitManager are allowed
         ]);
 
@@ -28,7 +28,8 @@ class UserController extends Controller
             'position' => $request->position,
         ]);
 
-        return redirect()->route('dashboardowner')->with('success', 'User created successfully!');
+        // Redirect to the users page with a success message
+        return redirect()->route('manageUser')->with('success', 'User created successfully!');
     }
 
     /**
@@ -36,9 +37,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('edit', $user); // Use the 'edit' policy
-
-        return view('users.edit', compact('user'));
+        return view('owner.edit_users', compact('user'));
     }
 
     /**
@@ -46,11 +45,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->authorize('update', $user); // Use the 'update' policy
-
         $request->validate([
             'username' => 'required|string|max:50|unique:users,username,' . $user->userID . ',userID',
-            'password' => 'nullable|string|min:6', // Password is optional
+            'password' => 'nullable|string|min:3', // Password is optional
             'position' => 'required|in:Admin,UnitManager', // Only Admin and UnitManager are allowed
         ]);
 
@@ -61,6 +58,7 @@ class UserController extends Controller
         $user->position = $request->position;
         $user->save();
 
-        return redirect()->route('dashboardowner')->with('success', 'User updated successfully!');
+        // Redirect to the users page with a success message
+        return redirect()->route('manageUser')->with('success', 'User updated successfully!');
     }
 }

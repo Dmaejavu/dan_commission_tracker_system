@@ -1,20 +1,23 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Commission;
 use App\Models\Card;
+use App\Models\Agent;
 
-class CommissionController extends Controller
+class OwnerCommissionController extends Controller
 {
     public function store(Request $request)
-    {  
-        // Check if the user is an Admin
-        if (!Auth::check() || Auth::user()->position !== 'Admin') {
+    {
+        // Check if the user is an Owner
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
         }
+
         $request->validate([
             'clientname' => 'required|string|max:50',
             'totalcom' => 'required|numeric',
@@ -23,7 +26,7 @@ class CommissionController extends Controller
             'agentID' => 'required|exists:agents,agentID',
         ]);
 
-        //banktype and cardtype
+        // Create or retrieve the card
         $card = Card::firstOrCreate(
             ['banktype' => $request->banktype, 'cardtype' => $request->cardtype],
             ['cardID' => Card::max('cardID') + 1]
@@ -36,28 +39,31 @@ class CommissionController extends Controller
             'status' => 'Pending', // Default status
             'cardID' => $card->cardID,
             'agentID' => $request->agentID,
-            'userID' => Auth::id(), 
+            'userID' => Auth::id(),
         ]);
 
-        return redirect()->route('dashboardadmin')->with('success', 'Commission created successfully!');
+        return redirect()->route('viewCommissions')->with('success', 'Commission created successfully!');
     }
 
     public function edit(Commission $commission)
     {
-          // Check if the user is an Owner
-    if (!Auth::check() || Auth::user()->position !== 'Owner') {
-        Auth::logout(); // Destroy the session
-        return redirect()->route('login')->with('error', 'Unauthorized access.');
-    }
-        return view('commissions.edit', compact('commission'));
-    }
-
-    public function update(Request $request, Commission $commission)
-    {  // Check if the user is an Owner
+        // Check if the user is an Owner
         if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
         }
+
+        return view('owner.edit_commission', compact('commission'));
+    }
+
+    public function update(Request $request, Commission $commission)
+    {
+        // Check if the user is an Owner
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
+            Auth::logout(); // Destroy the session
+            return redirect()->route('login')->with('error', 'Unauthorized access.');
+        }
+
         $request->validate([
             'totalcom' => 'required|numeric',
             'clientname' => 'required|string|max:50',
@@ -70,18 +76,15 @@ class CommissionController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('dashboardowner')->with('success', 'Commission updated successfully!');
+        return redirect()->route('viewCommissions')->with('success', 'Commission updated successfully!');
     }
 
-    public function create()
-    {   // Check if the user is an Owner
-        if (!Auth::check() || Auth::user()->position !== 'Admin') {
-            Auth::logout(); // Destroy the session
-            return redirect()->route('login')->with('error', 'Unauthorized access.');
-        }
-        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); 
-        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); 
+    public function createCommission()
+    {
+        $agents = Agent::all(); // Fetch all agents
+        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); // Fetch distinct bank types
+        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); // Fetch distinct card types
 
-        return view('admin.create_commission', compact('banktypes', 'cardtypes'));
+        return view('owner.create_commission', compact('agents', 'banktypes', 'cardtypes'));
     }
 }

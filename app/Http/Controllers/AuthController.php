@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
+
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class AuthController extends Controller
 {
+    use ValidatesRequests;
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -14,10 +20,24 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password');
+        $this->validate($request, [
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $key = 'login-attempts:' . $request->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            RateLimiter::hit($key, 300); //TIMER
+
+            $seconds = RateLimiter::availableIn($key);
+
+            throw ValidationException::withMessages([
+                'login' => "Too many login attempts. Please try again in {$seconds} seconds.",
+            ]);
+        }
+        if (Auth::attempt($request->only('username', 'password'))) {
+            RateLimiter::clear($key); 
 
             $user = Auth::user();
             switch ($user->position) {
@@ -31,8 +51,11 @@ class AuthController extends Controller
                     return back()->withErrors(['login' => 'Invalid role.']);
             }
         }
+        RateLimiter::hit($key, 300); 
 
-        return back()->withErrors(['login' => 'Invalid username or password.']);
+        throw ValidationException::withMessages([
+            'login' => 'The provided credentials are incorrect.',
+        ]);
     }
 
     public function logout(Request $request)

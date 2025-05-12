@@ -4,45 +4,64 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Agent;
+use Illuminate\Support\Facades\Auth;
 
 class AgentController extends Controller
 {
     public function store(Request $request)
-    {
+    {  // Check if the user is an Owner
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
+            Auth::logout(); // Destroy the session
+            return redirect()->route('login')->with('error', 'Unauthorized access.');
+        }
         $request->validate([
-            'agentname' => 'required|string|max:50',
-            'comrate' => 'required|numeric|min:0|max:100', 
-            'area' => 'required|string|max:50',
+            'agentname' => 'required|string|max:255',
+            'comrate' => 'required|numeric|min:0|max:100', // Commission rate as a percentage
+            'area' => 'required|string|max:255',
         ]);
 
         Agent::create([
             'agentname' => $request->agentname,
-            'comrate' => $request->comrate / 100,
+            'comrate' => $request->comrate / 100, // Convert percentage to decimal
             'area' => $request->area,
         ]);
 
-        return redirect()->route('dashboardowner')->with('success', 'Agent created successfully!');
+        // Redirect to the agents page with a success message
+        return redirect()->route('manageAgent')->with('success', 'Agent created successfully!');
     }
 
     public function edit(Agent $agent)
-    {
-        return view('agents.edit', compact('agent'));
+    {  // Check if the user is an Owner
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
+            Auth::logout(); // Destroy the session
+            return redirect()->route('login')->with('error', 'Unauthorized access.');
+        }
+        // Convert the commission rate to a percentage for display
+        $agent->comrate = $agent->comrate * 100;
+
+        return view('owner.edit_agent', compact('agent'));
     }
 
     public function update(Request $request, Agent $agent)
-    {
+    {  // Check if the user is an Owner
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
+            Auth::logout(); // Destroy the session
+            return redirect()->route('login')->with('error', 'Unauthorized access.');
+        }
+
         $request->validate([
-            'agentname' => 'required|string|max:50',
-            'comrate' => 'required|numeric|min:0|max:100',
-            'area' => 'required|string|max:50',
+            'agentname' => 'required|string|max:255',
+            'comrate' => 'required|numeric|min:0|max:100', // Commission rate as a percentage
+            'area' => 'required|string|max:255',
         ]);
 
         $agent->update([
             'agentname' => $request->agentname,
-            'comrate' => $request->comrate / 100,
+            'comrate' => $request->comrate / 100, // Convert percentage to decimal
             'area' => $request->area,
         ]);
 
-        return redirect()->route('dashboardowner')->with('success', 'Agent updated successfully!');
+        // Redirect to the agents page with a success message
+        return redirect()->route('manageAgent')->with('success', 'Agent updated successfully!');
     }
 }

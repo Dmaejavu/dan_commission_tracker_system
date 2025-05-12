@@ -14,7 +14,7 @@
             </div>
             <h1>Login</h1>
             @if ($errors->any())
-                <div>
+                <div class="error-message">
                     <strong>{{ $errors->first('login') }}</strong>
                 </div>
             @endif
