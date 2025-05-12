@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
     // Agent 
+    Route::get('/agents', [AgentController::class, 'index'])->name('agents.index');
     Route::post('/agents', [AgentController::class, 'store'])->name('agents.store');
     Route::get('/agents/{agent}/edit', [AgentController::class, 'edit'])->name('agents.edit'); 
     Route::put('/agents/{agent}', [AgentController::class, 'update'])->name('agents.update');

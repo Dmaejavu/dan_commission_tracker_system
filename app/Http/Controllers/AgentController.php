@@ -64,4 +64,27 @@ class AgentController extends Controller
         // Redirect to the agents page with a success message
         return redirect()->route('manageAgent')->with('success', 'Agent updated successfully!');
     }
+
+    public function index(Request $request)
+    {
+        $query = Agent::query();
+
+        // Search by Agent Name
+        if ($request->filled('search')) {
+            $query->where('agentname', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter by Area
+        if ($request->filled('area')) {
+            $query->where('area', $request->area);
+        }
+
+        // Fetch filtered agents
+        $agents = $query->get();
+
+        // Fetch distinct areas for the dropdown
+        $areas = Agent::distinct()->pluck('area');
+
+        return view('owner.agents', compact('agents', 'areas'));
+    }
 }
