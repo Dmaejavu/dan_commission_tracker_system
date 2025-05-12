@@ -33,7 +33,7 @@ class AuthController extends Controller
             $seconds = RateLimiter::availableIn($key);
 
             throw ValidationException::withMessages([
-                'login' => "Too many login attempts. Please try again in {$seconds} seconds.",
+                'login' => "Too many login attempts. Please try again later.",
             ]);
         }
         if (Auth::attempt($request->only('username', 'password'))) {

@@ -10,8 +10,8 @@
         <div class="bigDIV">
             <div class="dashboard-cards">
                 <div class="card">
-                    <h2>Total Commissions</h2>
-                    <p>{{ $totalCommissions }}</p>
+                    <h2>Commissions</h2>
+                    <p> $ {{ $totalCommissions }}</p>
                 </div>
                 <div class="card">
                     <h2>Total Agents</h2>
@@ -42,7 +42,7 @@
                             <td>{{ $commission->comID }}</td>
                             <td>{{ $commission->agent->agentname }}</td>
                             <td>{{ $commission->clientname }}</td>
-                            <td>{{ $commission->totalcom }}</td>
+                            <td>$ {{ $commission->totalcom }}</td>
                             <td>{{ $commission->status }}</td>
                             <td>{{ $commission->created_at }}</td>
                         </tr>

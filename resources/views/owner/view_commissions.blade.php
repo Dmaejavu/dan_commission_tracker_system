@@ -34,7 +34,7 @@
                     <td>{{ $commission->comID }}</td>
                     <td>{{ $commission->user->username }}</td>
                     <td>{{ $commission->agent->agentname }}</td>
-                    <td>{{ $commission->totalcom }}</td>
+                    <td>$ {{ $commission->totalcom }}</td>
                     <td>{{ $commission->clientname }}</td>
                     <td>{{ $commission->card->banktype ?? 'N/A' }}</td>
                     <td>{{ $commission->card->cardtype ?? 'N/A' }}</td>

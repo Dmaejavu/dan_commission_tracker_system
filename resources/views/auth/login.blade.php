@@ -20,7 +20,7 @@
             @endif
             <div class="login-form">
                 <form action="{{ route('login') }}" method="POST">
-                    @csrf <!-- This is required to include the CSRF token -->
+                    @csrf 
                 
                 <div class="flex flex-col mb-2">
                     <label for="username">Username:</label>
