@@ -5,7 +5,8 @@
 @include('owner.sidebar')
 
 <div class="content">
-    <h1>Create Commission</h1>
+    <div class="bigDIV">
+    <h2>Create Commission</h2>
     <form action="{{ route('owner.commissions.store') }}" method="POST">
         @csrf
         <div class="medDIV">
@@ -51,9 +52,11 @@
                 <option value="Completed">Completed</option>
             </select>
             <br>
-
-            <button type="submit">Create Commission</button>
+            <div class="w-full h-max flex flex-row items-center justify-end">
+                <button type="submit">Create Commission</button>
+            </div>
         </div>
     </form>
+    </div> <!-- End of bigDIV -->
 </div>
 @endsection
