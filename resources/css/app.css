@@ -126,6 +126,18 @@ h2{
     @apply mx-1 text-center bg-gray-900 text-gray-200 rounded-md px-3 py-2 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:bg-red-700 hover:translate-x-0.5 hover:shadow-black active:scale-95 active:bg-gray-700 
 }
 
+.search-filter{
+    @apply w-4/10 bg-linear-to-r from-white from-70% to-gray-100 py-3 px-2 rounded-xl
+}
+
+.search-filter input{
+    @apply w-50 bg-gray-100 border-2 border-gray-200 rounded-md px-2 py-0.5 mx-4 shadow-2xl focus:ring focus:ring-gray-700
+}
+
+.search-filter button{
+    @apply bg-gray-300 text-black rounded-md px-2 py-1 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:bg-gray-600 hover:text-white hover:scale-101 hover:shadow-gray-300 hover:shadow-md active:scale-95 active:bg-gray-600 
+}
+
 .content{
     @apply flex flex-col w-full h-screen bg-gray-100 text-black ml-48 p-8 pb-10 overflow-y-scroll
 }
