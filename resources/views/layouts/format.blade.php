@@ -15,7 +15,10 @@
             </div> <!-- End of leftHeader -->
 
             <div class="rightHeader">
-                Bayot Paul 
+                <button class="bg-red-900"> <!-- red to see where the button is -->
+                    <img src="{{ asset('images/icons8-whitePerson-90.png') }}" alt="Logo" class="header-img">
+                </button>
+                <h3 class="no-underline">Bayot Paul</h3> 
             </div> <!-- End of rightHeader -->
 
         </div> <!-- End of header -->
