@@ -79,7 +79,15 @@ h2{
 }
 
 .rightHeader{
-    @apply my-2 mr-4 flex items-center gap-4 justify-end w-1/2 h-full text-white text-4xl font-bold
+    @apply my-2 mr-4 flex items-center gap-4 justify-between w-max h-full text-white text-4xl font-bold
+}
+
+.rightHeader button{
+    @apply cursor-pointer transition ease-in-out duration-250 hover:scale-103
+}
+
+.rightHeader img{
+    @apply w-12 
 }
 
 .sidebar{
