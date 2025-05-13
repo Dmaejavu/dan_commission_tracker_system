@@ -18,8 +18,8 @@
                 @foreach ($agents as $agent)
                 <tr>
                     <td>{{ $agent->agentname }}</td>
-                    <td>$ {{ $agent->commissions->sum('totalcom') }}</td>
-                    <td>$ {{ $agent->commissions->sum('totalcom') * $agent->comrate }}</td>
+                    <td>$ {{ $agent->approvedCommissions->sum('totalcom') }}</td>
+                    <td>$ {{ $agent->approvedCommissions->sum('totalcom') * $agent->comrate }}</td>
                 </tr>
                 @endforeach
             </tbody>

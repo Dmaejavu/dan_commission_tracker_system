@@ -11,29 +11,38 @@ class OwnerController extends Controller
 {
     public function dashboard()
     {
-         // Check if the user is an Owner
-    if (!Auth::check() || Auth::user()->position !== 'Owner') {
-        Auth::logout(); // Destroy the session
-        return redirect()->route('login')->with('error', 'Unauthorized access.');
-    }
+        // Check if the user is an Owner
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
+            Auth::logout(); // Destroy the session
+            return redirect()->route('login')->with('error', 'Unauthorized access.');
+        }
 
+        // Total commissions where status is 'Approved'
+        $totalCommissions = Commission::where('status', 'Approved')->sum('totalcom');
 
-        $totalCommissions = Commission::sum('totalcom');
+        // Top agent based on approved commissions
+        $topAgent = Agent::withSum(['commissions as approved_commissions' => function ($query) {
+            $query->where('status', 'Approved');
+        }], 'totalcom')
+        ->orderByDesc('approved_commissions')
+        ->first();
+
+        // Total agents
         $totalAgents = Agent::count();
-        $topAgent = Agent::withSum('commissions', 'totalcom')
-            ->orderByDesc('commissions_sum_totalcom')
-            ->first();
-        $recentPendingCommissions = Commission::where('status', 'Pending')
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
 
-        return view('owner.dashboardowner', compact('totalCommissions', 'totalAgents', 'topAgent', 'recentPendingCommissions'));
+        // Recent pending commissions
+        $recentPendingCommissions = Commission::where('status', 'Pending')->latest()->take(10)->get();
+
+        return view('owner.dashboardowner', compact(
+            'totalCommissions',
+            'topAgent',
+            'totalAgents',
+            'recentPendingCommissions'
+        ));
     }
 
     public function viewCommissions()
     {
-          // Check if the user is an Owner
     if (!Auth::check() || Auth::user()->position !== 'Owner') {
         Auth::logout(); // Destroy the session
         return redirect()->route('login')->with('error', 'Unauthorized access.');
@@ -45,18 +54,19 @@ class OwnerController extends Controller
 
     public function viewTotalCommissions()
     {
-          // Check if the user is an Owner
     if (!Auth::check() || Auth::user()->position !== 'Owner') {
         Auth::logout(); // Destroy the session
         return redirect()->route('login')->with('error', 'Unauthorized access.');
     }
-        $agents = Agent::with('commissions')->get();
-        return view('owner.total_commissions', compact('agents'));
+
+    // Load agents with approved commissions
+    $agents = Agent::with('approvedCommissions')->get();
+
+    return view('owner.total_commissions', compact('agents'));
     }
 
     public function manageUsers()
     {
-          // Check if the user is an Owner
     if (!Auth::check() || Auth::user()->position !== 'Owner') {
         Auth::logout(); // Destroy the session
         return redirect()->route('login')->with('error', 'Unauthorized access.');
@@ -67,7 +77,6 @@ class OwnerController extends Controller
 
     public function manageAgents()
     {
-          // Check if the user is an Owner
     if (!Auth::check() || Auth::user()->position !== 'Owner') {
         Auth::logout(); // Destroy the session
         return redirect()->route('login')->with('error', 'Unauthorized access.');
@@ -78,7 +87,6 @@ class OwnerController extends Controller
 
     public function createCommission()
     {
-// Check if the user is an Owner
 if (!Auth::check() || Auth::user()->position !== 'Owner') {
     Auth::logout(); // Destroy the session
     return redirect()->route('login')->with('error', 'Unauthorized access.');

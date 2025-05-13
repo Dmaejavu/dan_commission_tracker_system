@@ -21,4 +21,12 @@ class Agent extends Model
     {
         return $this->hasMany(Commission::class, 'agentID', 'agentID');
     }
+
+    /**
+     * Define the relationship to the approved Commission model.
+     */
+    public function approvedCommissions()
+    {
+        return $this->hasMany(Commission::class, 'agentID')->where('status', 'Approved');
+    }
 }

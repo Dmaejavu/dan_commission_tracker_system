@@ -36,7 +36,7 @@ class OwnerCommissionController extends Controller
         Commission::create([
             'clientname' => $request->clientname,
             'totalcom' => $request->totalcom,
-            'status' => 'Pending', // Default status
+            'status' => 'Pending',
             'cardID' => $card->cardID,
             'agentID' => $request->agentID,
             'userID' => Auth::id(),
@@ -47,7 +47,7 @@ class OwnerCommissionController extends Controller
 
     public function edit(Commission $commission)
     {
-        // Check if the user is an Owner
+
         if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
@@ -58,7 +58,6 @@ class OwnerCommissionController extends Controller
 
     public function update(Request $request, Commission $commission)
     {
-        // Check if the user is an Owner
         if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
@@ -81,9 +80,9 @@ class OwnerCommissionController extends Controller
 
     public function createCommission()
     {
-        $agents = Agent::all(); // Fetch all agents
-        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); // Fetch distinct bank types
-        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); // Fetch distinct card types
+        $agents = Agent::all(); 
+        $banktypes = Card::select('banktype')->distinct()->pluck('banktype'); 
+        $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype'); 
 
         return view('owner.create_commission', compact('agents', 'banktypes', 'cardtypes'));
     }

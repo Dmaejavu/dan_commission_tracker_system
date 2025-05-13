@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/agents/{agent}', [AgentController::class, 'update'])->name('agents.update');
 });
 
-Route::middleware(['auth', 'role:Owner'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::post('/owner/commissions', [OwnerCommissionController::class, 'store'])->name('owner.commissions.store');
     Route::get('/owner/commissions/{commission}/edit', [OwnerCommissionController::class, 'edit'])->name('owner.commissions.edit');
     Route::put('/owner/commissions/{commission}', [OwnerCommissionController::class, 'update'])->name('owner.commissions.update');
