@@ -52,8 +52,15 @@
                 }
             </script>
         </div> <!-- End of bigDIV -->
+
         {{-- User Table --}}
         <h2>Users</h2>
+        <div class="search-filter">
+            <form action="{{ route('users.index') }}" method="GET">
+                <input type="text" name="search" placeholder="Search Username" value="{{ request('search') }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
         <table border="1">
             <thead>
                 <tr>

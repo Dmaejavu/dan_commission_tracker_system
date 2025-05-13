@@ -34,7 +34,7 @@
                             <th>Total Commission</th>
                             <th>Status</th>
                             <th>Created At</th>
-                        </tr>
+                            <th>Actions</th>
                     </thead>
                     <tbody>
                         @foreach ($recentPendingCommissions as $commission)
@@ -45,7 +45,10 @@
                             <td>$ {{ $commission->totalcom }}</td>
                             <td>{{ $commission->status }}</td>
                             <td>{{ $commission->created_at }}</td>
-                        </tr>
+                            <td>
+                                <a href="{{ route('commissions.edit', $commission->comID) }}">Edit</a>
+                            </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

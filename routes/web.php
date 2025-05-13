@@ -44,8 +44,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
     Route::get('/commissions/{commission}/edit', [CommissionController::class, 'edit'])->name('commissions.edit'); 
     Route::put('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
+    Route::get('/commissions', [CommissionController::class, 'index'])->name('commissions.index');
 
     // User management routes
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('edit_users');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 

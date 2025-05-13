@@ -16,11 +16,11 @@
                     @method('PUT')
                 <div class="medDIV-forms">
                     <label for="totalcom">Total Commission:</label>
-                    <input type="number" step="0.01" name="totalcom" id="totalcom" value="{{ $commission->totalcom }}" required>
+                    <input type="number" step="0.01" name="totalcom" id="totalcom" value="{{ $commission->totalcom }}" readonly>
                     <br>
 
                     <label for="clientname">Client Name:</label>
-                    <input type="text" name="clientname" id="clientname" value="{{ $commission->clientname }}" required>
+                    <input type="text" name="clientname" id="clientname" value="{{ $commission->clientname }}" readonly>
                     <br>
 
                     <label for="status">Status:</label>

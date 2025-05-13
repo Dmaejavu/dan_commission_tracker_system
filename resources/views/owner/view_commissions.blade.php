@@ -14,6 +14,14 @@
                 </a>
             </button>
         </div>
+        {{-- Search and Filter --}}
+        <div class="search-filter">
+            <form action="{{ route('commissions.index') }}" method="GET">
+                <input type="text" name="search" placeholder="Search by Agent Name" value="{{ request('search') }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
         <table>
             <thead>
                 <tr>

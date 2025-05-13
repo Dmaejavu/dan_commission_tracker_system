@@ -61,4 +61,22 @@ class UserController extends Controller
         // Redirect to the users page with a success message
         return redirect()->route('manageUser')->with('success', 'User updated successfully!');
     }
+
+    /**
+     * Display a listing of the users.
+     */
+    public function index(Request $request)
+    {
+        $query = User::query();
+
+        // Search by Username
+        if ($request->filled('search')) {
+            $query->where('username', 'like', '%' . $request->search . '%');
+        }
+
+        // Exclude the Owner from the results
+        $users = $query->where('position', '!=', 'Owner')->get();
+
+        return view('owner.users', compact('users'));
+    }
 }
