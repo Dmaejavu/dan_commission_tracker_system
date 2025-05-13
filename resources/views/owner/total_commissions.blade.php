@@ -5,7 +5,7 @@
 <div class="content">
     {{-- View Total Commissions --}}
     <div id="viewTotalCommissions" style="display: block;">
-        <h1>View Total Commissions</h1>
+        <h1>Total Commissions</h1>
         <table border="1">
             <thead>
                 <tr>
