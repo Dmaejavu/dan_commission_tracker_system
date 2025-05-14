@@ -187,8 +187,10 @@ h2{
     @apply text-lg hover:cursor-default
 }
 
+/* dan, kung ayaw ni gelo ang scroll bar sa table, igna lang na tanggalin ang div na naga wrap sa table then ang overflow-hidden sa table ibalik*/
+
 table{
-    @apply w-full h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-hidden shadow-md
+    @apply w-full h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-x-hidden shadow-md
     /* width is calculated from sidebar cause sidebar is 1/8. me smart, dan smart, gelo stoopid */
 }
 
@@ -200,8 +202,12 @@ table a:hover{
     @apply text-blue-700 scale-130 shadow-md
 }
 
+table::-webkit-scrollbar{
+    @apply hidden
+}
+
 table th{
-    @apply bg-gray-300 text-gray-800 top-0 font-bold text-left py-4 px-3 border-b-1 border-gray-400
+    @apply bg-gray-300 text-gray-800 sticky top-0 font-bold text-left py-4 px-3 border-b-1 border-gray-400
 }
 
 table td{
