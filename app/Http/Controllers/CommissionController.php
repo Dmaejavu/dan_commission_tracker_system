@@ -16,24 +16,27 @@ class CommissionController extends Controller
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
         }
+
         $request->validate([
             'clientname' => 'required|string|max:50',
-            'totalcom' => 'required|numeric',
             'banktype' => 'required',
             'cardtype' => 'required',
             'agentID' => 'required|exists:agents,agentID',
         ]);
 
-        //banktype and cardtype
-        $card = Card::firstOrCreate(
-            ['banktype' => $request->banktype, 'cardtype' => $request->cardtype],
-            ['cardID' => Card::max('cardID') + 1]
-        );
+        // Retrieve the card price based on banktype and cardtype
+        $card = Card::where('banktype', $request->banktype)
+                    ->where('cardtype', $request->cardtype)
+                    ->first();
+
+        if (!$card) {
+            return redirect()->back()->with('error', 'Invalid card type or bank type selected.');
+        }
 
         // Create the commission
         Commission::create([
             'clientname' => $request->clientname,
-            'totalcom' => $request->totalcom,
+            'totalcom' => $card->prices, // Use the card price as the total commission
             'status' => 'Pending', // Default status
             'cardID' => $card->cardID,
             'agentID' => $request->agentID,

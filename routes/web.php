@@ -9,6 +9,8 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\OwnerCommissionController;
+use Illuminate\Http\Request;
+use App\Models\Card;
 
 // Default route for login
 Route::get('/', function () {
@@ -63,4 +65,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/owner/commissions', [OwnerCommissionController::class, 'store'])->name('owner.commissions.store');
     Route::get('/owner/commissions/{commission}/edit', [OwnerCommissionController::class, 'edit'])->name('owner.commissions.edit');
     Route::put('/owner/commissions/{commission}', [OwnerCommissionController::class, 'update'])->name('owner.commissions.update');
+});
+
+Route::get('/get-card-price', function (Request $request) {
+    $card = Card::where('banktype', $request->banktype)
+                ->where('cardtype', $request->cardtype)
+                ->first();
+
+    if ($card) {
+        return response()->json(['price' => $card->prices]);
+    }
+
+    return response()->json(['price' => 0], 404);
 });

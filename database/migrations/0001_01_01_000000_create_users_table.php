@@ -48,6 +48,7 @@ return new class extends Migration
             $table->integer('cardID')->primary(); 
             $table->enum('banktype', ['BDO', 'BPI', 'CBC']);
             $table->enum('cardtype', ['Silver', 'Gold', 'Platinum']);
+            $table->float('prices')->nullable()->after('cardtype');
         });
 
         // Add cardID to commissions table

@@ -8,10 +8,12 @@ class Card extends Model
 {
     use HasFactory;
 
-    protected $table = 'cards'; // Specify the table name
-    protected $primaryKey = 'cardID'; // Specify the primary key
-    public $incrementing = false; // Since cardID is not auto-incrementing
-    protected $keyType = 'int'; // Specify the type of the primary key
+    protected $table = 'cards'; 
+    protected $primaryKey = 'cardID'; 
+    public $incrementing = false; 
+    protected $keyType = 'int'; 
 
     protected $fillable = ['cardID', 'banktype', 'cardtype'];
+
+    public $timestamps = false; 
 }

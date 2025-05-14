@@ -10,8 +10,8 @@
             <thead>
                 <tr>
                     <th>Agent Name</th>
+                    <th>Total Price</th>
                     <th>Total Commission</th>
-                    <th>Commission Rate Taken</th>
                 </tr>
             </thead>
             <tbody>
