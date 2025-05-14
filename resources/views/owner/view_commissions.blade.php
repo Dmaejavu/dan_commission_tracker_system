@@ -21,7 +21,7 @@
                 <button type="submit">Search</button>
             </form>
         </div>
-
+        <div class="overflow-x-hidden overflow-y-scroll max-h-[500px]">
         <table>
             <thead>
                 <tr>
@@ -54,6 +54,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 @endsection
