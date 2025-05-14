@@ -22,113 +22,109 @@
         </div>
     </div>
 </div> <!-- End of sidebar -->
-    <div class="content">
-        {{-- Create Commission Form --}}
-        <div id="createCommission" style="display: none;">
-            <div class="bigDIV">
-                <h2>Create Commission</h2>
-                <div class="medDIV">
-                    <form action="{{ route('commissions.store') }}" method="POST">
-                        @csrf
-                        <div class="w-3/8">
-                            <div class="medDIV-forms">
-                                <label for="clientname">Client Name:</label>
-                                <input type="text" name="clientname" id="clientname" required>
-                                <br>
-                            </div>
-                            <div class="medDIV-forms">
-                                <label for="totalcom">Total Commission:</label>
-                                <input type="number" step="0.01" name="totalcom" id="totalcom" required>
-                                <br>
-                            </div>
-                            <div class="medDIV-forms">
-                                <label for="banktype">Bank Type:</label>
-                                <select name="banktype" id="banktype" required>
-                                    <option> --Choose-- </option>
-                                    @foreach ($banktypes as $banktype)
-                                        <option value="{{ $banktype }}">{{ $banktype }}</option>
-                                    @endforeach
-                                </select>
-                                <br>
-                            </div>
-                            <div class="medDIV-forms">
-                                <label for="cardtype">Card Type:</label>
-                                <select name="cardtype" id="cardtype" required>
-                                    <option> --Choose-- </option>
-                                    @foreach ($cardtypes as $cardtype)
-                                        <option value="{{ $cardtype }}">{{ $cardtype }}</option>
-                                    @endforeach
-                                </select>
-                                <br>
-                            </div>
-                            <div class="medDIV-forms">
-                            <label for="agentID">Agent:</label>
-                                <select name="agentID" id="agentID" required>
-                                    <option> --Choose-- </option>
-                                    @foreach ($agents as $agent)
-                                        <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
-                                    @endforeach
-                                </select>
-                                <br>
-                            </div>
+<div class="content">
+    {{-- Create Commission Form --}}
+    <div id="createCommission" style="display: none;">
+        <div class="bigDIV">
+            <h2>Create Commission</h2>
+            <div class="medDIV">
+                <form action="{{ route('commissions.store') }}" method="POST">
+                    @csrf
+                    <div class="w-3/8">
+                        <div class="medDIV-forms">
+                            <label for="clientname">Client Name:</label>
+                            <input type="text" name="clientname" id="clientname" required>
+                            <br>
                         </div>
-                        <button type="submit">Create Commission</button>
-                    </form>
+                        <div class="medDIV-forms">
+                            <label for="banktype">Bank Type:</label>
+                            <select name="banktype" id="banktype" required>
+                                <option> --Choose-- </option>
+                                @foreach ($banktypes as $banktype)
+                                    <option value="{{ $banktype }}">{{ $banktype }}</option>
+                                @endforeach
+                            </select>
+                            <br>
+                        </div>
+                        <div class="medDIV-forms">
+                            <label for="cardtype">Card Type:</label>
+                            <select name="cardtype" id="cardtype" required>
+                                <option> --Choose-- </option>
+                                @foreach ($cardtypes as $cardtype)
+                                    <option value="{{ $cardtype }}">{{ $cardtype }}</option>
+                                @endforeach
+                            </select>
+                            <br>
+                        </div>
+                        <div class="medDIV-forms">
+                            <label for="agentID">Agent:</label>
+                            <select name="agentID" id="agentID" required>
+                                <option> --Choose-- </option>
+                                @foreach ($agents as $agent)
+                                <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
+                                @endforeach
+                            </select>
+                            <br>
+                        </div>
                     </div>
-                </div>
-            </div> <!-- End of bigDIV -->
-        
-
-        {{-- View Commissions Table --}}
-        <div id="viewCommissions" style="display: none;">
-            <h2>Commissions</h2>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Commission Number</th>
-                        <th>User</th>
-                        <th>Agent</th>
-                        <th>Total Commission</th>
-                        <th>Client Name</th>
-                        <th>Bank Type</th>
-                        <th>Card Type</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($commissions as $commission)
-                        <tr>
-                            <td>{{ $commission->comID }}</td>
-                            <td>{{ $commission->user->username }}</td>
-                            <td>{{ $commission->agent->agentname }}</td>
-                            <td>{{ $commission->totalcom }}</td>
-                            <td>{{ $commission->clientname }}</td>
-                            <td>{{ $commission->card->banktype ?? 'N/A' }}</td>
-                            <td>{{ $commission->card->cardtype ?? 'N/A' }}</td>
-                            <td>{{ $commission->status }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    <button type="submit">Create Commission</button>
+                </form>
+            </div>
         </div>
+    </div> <!-- End of bigDIV -->
 
-        </div>
 
-        <script>
-            function showCreateCommission() {
-                document.getElementById('createCommission').style.display = 'block';
-                document.getElementById('viewCommissions').style.display = 'none';
-            }
+    {{-- View Commissions Table --}}
+    <div id="viewCommissions" style="display: none;">
+        <h2>Commissions</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Agent</th>
+                    <th>Total Commission</th>
+                    <th>Client Name</th>
+                    <th>Bank Type</th>
+                    <th>Card Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($commissions as $commission)
+                <tr>
+                    <td>{{ $commission->comID }}</td>
+                    <td>{{ $commission->user->username }}</td>
+                    <td>{{ $commission->agent->agentname }}</td>
+                    <td>{{ $commission->totalcom }}</td>
+                    <td>{{ $commission->clientname }}</td>
+                    <td>{{ $commission->card->banktype ?? 'N/A' }}</td>
+                    <td>{{ $commission->card->cardtype ?? 'N/A' }}</td>
+                    <td>{{ $commission->status }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
-            function showViewCommissions() {
-                document.getElementById('createCommission').style.display = 'none';
-                document.getElementById('viewCommissions').style.display = 'block';
-            }
+</div>
 
-            // Set the default view to showViewCommissions when the page loads
-            document.addEventListener('DOMContentLoaded', function () {
-                showViewCommissions();
-            });
-        </script>
-    </div> <!-- End of content -->
+<script>
+    function showCreateCommission() {
+        document.getElementById('createCommission').style.display = 'block';
+        document.getElementById('viewCommissions').style.display = 'none';
+    }
+
+    function showViewCommissions() {
+        document.getElementById('createCommission').style.display = 'none';
+        document.getElementById('viewCommissions').style.display = 'block';
+    }
+
+    // Set the default view to showViewCommissions when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        showViewCommissions();
+    });
+</script>
+</div> <!-- End of content -->
 @endsection
+
