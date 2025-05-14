@@ -217,7 +217,7 @@ table tr{
 }
 
 .bigDIV button{
-    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-2 py-1 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-103 hover:shadow-gray-300 hover:shadow-md active:scale-95 active:bg-green-400 
+    @apply mt-2 mb-2 mr-1 ml-1 bg-green-400 text-white rounded-md px-2 py-1 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-101 hover:shadow-gray-300 hover:shadow-md active:scale-95 active:bg-green-400 
 }
 
 .bigDIV select{
@@ -225,7 +225,7 @@ table tr{
 }
 
 .bigDIV input{
-    @apply mt-1 mb-1 mr-1 ml-1 bg-gray-50 border-2 border-gray-400 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-700
+    @apply mt-1 mb-1 mr-1 ml-1 bg-gray-50 border-1 border-gray-400 rounded-md px-2 py-0.5 shadow-2xl focus:ring focus:ring-gray-400 focus:inset-shadow-sm focus:inset-shadow-gray-300
 }
 
 .bigDIV h1 {

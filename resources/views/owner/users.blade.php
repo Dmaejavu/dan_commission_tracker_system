@@ -22,10 +22,10 @@
                     <div class="w-3/8">
                         <div class="medDIV-forms">
                             <label for="username">Username:</label>
-                            <input class="input-form" type="text" name="username" id="username" required>
+                            <input class="input-form" type="text" name="username" placeholder="Username" id="username" required>
                             <br>
                             <label for="password">Password:</label>
-                            <input class="input-form" type="password" name="password" id="password" required>
+                            <input class="input-form" type="password" name="password" placeholder="Password" id="password" required>
                             <br>
                             <label for="position">Position:</label>
                             <select class="input-form" name="position" id="position" required>
