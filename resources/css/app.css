@@ -190,7 +190,7 @@ h2{
 /* dan, kung ayaw ni gelo ang scroll bar sa table, igna lang na tanggalin ang div na naga wrap sa table then ang overflow-hidden sa table ibalik*/
 
 table{
-    @apply w-full h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-x-hidden shadow-md
+    @apply w-full h-max border-collapse p-4 mx-4 my-8 rounded-md overflow-hidden shadow-md
     /* width is calculated from sidebar cause sidebar is 1/8. me smart, dan smart, gelo stoopid */
 }
 
