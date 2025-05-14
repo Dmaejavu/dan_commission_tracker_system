@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import "tailwindcss-animated";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -12,28 +13,44 @@
 
 /* LOG IN CSS */
 
+.error-message{
+    @apply text-red-500 text-sm font-bold
+}
+
 .login-wrapper {
     @apply flex flex-col items-center justify-center w-screen h-screen bg-linear-to-b from-gray-500 to-gray-900 
 }
 
 .login-container{
-    @apply flex flex-col items-center justify-center w-full max-w-md p-6 bg-white border border-gray-400 rounded-lg shadow-md
+    @apply flex flex-col items-center justify-center w-full max-w-md p-6 bg-white border border-gray-400 rounded-lg shadow-md animate-fade animate-once animate-duration-[400ms]
 }
 
 .login-container h1, label{
     @apply text-black
 }
 
+.login-form label{
+    @apply text-sm font-light text-left tracking-wider
+}
+
 .login-container button{
-    @apply w-full my-2 bg-green-400 text-white rounded-md px-3 py-2 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-green-300 hover:text-black hover:scale-102 hover:shadow-gray-900 active:scale-95 active:bg-green-400 
+    @apply w-full my-2 bg-yellow-300 text-black font-bold rounded-md px-3 py-2 focus:ring focus:ring-green-900 transition duration-300 ease-in-out hover:bg-yellow-400 hover:shadow-sm hover:scale-101 hover:shadow-gray-900 active:scale-95 active:bg-yellow-200 
 }
 
 .login-container h1{
-    @apply text-4xl font-bold text-left border-0 mt-3 mb-2
+    @apply text-4xl font-bold text-left tracking-widest border-0 mt-3 mb-2
 }
 
 .login-form{
     @apply px-3 w-full flex flex-col justify-center
+}
+
+.login-form input{
+    @apply pl-2 border-1 border-gray-300 focus:inset-shadow-sm focus:inset-shadow-gray-400 active:border-1 active:border-gray-200
+}
+
+.login-form input::placeholder{
+    @apply italic
 }
 
 .input-form{
@@ -71,11 +88,15 @@ h2{
 }
 
 .header h1{
-    @apply border-none p-0 
+    @apply font-extrabold border-none p-0 text-3xl tracking-wider
 }
 
 .leftHeader{
     @apply my-2 ml-4 flex items-center gap-4 justify-start w-1/2 h-full text-white text-4xl font-bold
+}
+
+.rightHeader h3{
+    @apply text-xl font-light tracking-widest
 }
 
 .rightHeader{
@@ -87,7 +108,7 @@ h2{
 }
 
 .rightHeader img{
-    @apply w-12 
+    @apply w-10 
 }
 
 .sidebar{
@@ -95,11 +116,11 @@ h2{
 }
 
 .imHere.active{
-    @apply text-white font-bold bg-linear-to-r from-red-900 from-5% to-red-700
+    @apply text-white font-bold shadow-xl bg-linear-to-r from-red-900 from-5% to-red-700
 }
 
 .sidebar-content{
-    @apply flex flex-col justify-between gap-22 mt-6
+    @apply flex flex-col justify-between gap-34 mt-6
 }
 
 .sidebar-content nav{
@@ -123,7 +144,7 @@ h2{
 }
 
 .logoutDIV {
-    @apply mx-1 text-center bg-gray-900 text-gray-200 rounded-md px-3 py-2 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:bg-red-700 hover:translate-x-0.5 hover:shadow-black active:scale-95 active:bg-gray-700 
+    @apply mx-1 text-center bg-linear-to-b from-yellow-500 to-yellow-400 text-black rounded-md px-3 py-2 focus:ring focus:ring-gray-900 transition duration-300 ease-in-out hover:scale-102 active:scale-95 active:bg-yellow-400 
 }
 
 .search-filter{
@@ -139,7 +160,7 @@ h2{
 }
 
 .content{
-    @apply flex flex-col w-full h-screen bg-gray-100 text-black ml-48 p-8 pb-10 overflow-y-scroll
+    @apply flex flex-col w-full h-screen bg-gray-100 text-black ml-48 p-8 pb-10 overflow-y-scroll animate-fade animate-once animate-duration-[600ms]
 }
 
 .content h1{
@@ -192,7 +213,7 @@ table tr{
 }
 
 .bigDIV{
-    @apply flex flex-col w-full h-max bg-white text-black ml-0 mb-12 p-4 rounded-md shadow-xl
+    @apply flex flex-col w-full h-max bg-white text-black ml-0 mb-12 p-4 rounded-md shadow-xl 
 }
 
 .bigDIV button{
@@ -216,7 +237,7 @@ table tr{
 }
 
 .medDIV-hidden {
-    @apply hidden flex-col w-full h-max bg-white text-black ml-0 p-4 transition duration-150 ease-in-out
+    @apply hidden flex-col w-full h-max bg-white text-black ml-0 p-4 animate-fade-down animate-once animate-duration-200
 }
 
 .medDIV-hidden select{

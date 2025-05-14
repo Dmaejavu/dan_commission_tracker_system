@@ -6,9 +6,9 @@
 <div class="content">
     {{-- View Commissions --}}
     <div id="viewCommissions" style="display: block;">
-        <div class="w-full h-max flex flex-row items-center justify-between border-b-1 border-gray-300">
+        <div class="w-full h-max mb-5 flex flex-row items-center justify-between border-b-1 border-gray-300">
             <h1>Commissions</h1>
-            <button class="w-8 h-8 flex items-center justify-center bg-gray-300 shadow-sm rounded-md transition ease-in-out duration-150 hover:shadow-md hover:scale-102 hover:bg-gray-400">
+            <button class="w-8 h-8 flex items-center justify-center bg-gray-200 shadow-sm rounded-md transition ease-in-out duration-150 hover:shadow-md hover:scale-102 hover:bg-gray-300">
                 <a href="{{ route('create_commission') }}">
                     <img class="w-auto h-5" src="{{ asset('images/icons8-plus-24.png') }}" alt="Logo" class="header-img">
                 </a>

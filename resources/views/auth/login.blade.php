@@ -24,7 +24,7 @@
                 
                 <div class="flex flex-col mb-2">
                     <label for="username">Username:</label>
-                    <input class="input-form" type="text" name="username" placeholder="Username" id="username" required>
+                    <input class="input-form" type="text" name="username" placeholder="e.g. angelo@gmail.com" id="username" required>
                 </div>
             
                 <div class="flex flex-col mb-1">
