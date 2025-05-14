@@ -201,7 +201,7 @@ table a:hover{
 }
 
 table th{
-    @apply bg-gray-300 text-gray-800 font-bold text-left py-4 px-3 border-b-1 border-gray-400
+    @apply bg-gray-300 text-gray-800 top-0 font-bold text-left py-4 px-3 border-b-1 border-gray-400
 }
 
 table td{

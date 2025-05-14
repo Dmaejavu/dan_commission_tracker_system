@@ -11,7 +11,7 @@
             <div class="w-full h-max flex flex-row items-center justify-between border-b-1 border-gray-300">
                 <h1>Create User</h1>
                 <img class="w-6 transition ease-in-out duration-300 hover:cursor-pointer hover:scale-115" src="{{ asset('images/icons8-expand-arrow-100.png') }}" 
-                alt="expand" class="expand-img"
+                alt="expand" class="expand-img" id="expandIcon"
                 onclick="showContent()"
                 >
             </div>
@@ -42,12 +42,15 @@
             </div> <!-- End of medDIV -->
             <script>
                 const medDIVContent = document.getElementById('medDIV-content');
+                const expandIcon = document.getElementById('expandIcon');
 
                 function showContent() {
                     if (medDIVContent.style.display === 'flex') {
                         medDIVContent.style.display = 'none';
+                        expandIcon.src = "{{ asset('images/icons8-expand-arrow-100.png') }}";
                     } else {
                         medDIVContent.style.display = 'flex';
+                        expandIcon.src = "{{ asset('images/icons8-right-100.png') }}";
                     }
                 }
             </script>
