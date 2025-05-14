@@ -87,4 +87,10 @@ class AgentController extends Controller
 
         return view('owner.agents', compact('agents', 'areas'));
     }
+
+    public function create()
+    {
+        $areas = ['Davao', 'Samal', 'Cotabato', 'Mati']; // Enum values
+        return view('owner.agents', compact('areas'));
+    }
 }

@@ -11,9 +11,8 @@
             <div class="w-full h-max flex flex-row items-center justify-between border-b-1 border-gray-300">
                 <h1>Create Agent</h1>
                 <img class="w-6 transition ease-in-out duration-300 hover:cursor-pointer hover:scale-115" src="{{ asset('images/icons8-expand-arrow-100.png') }}"
-                alt="expand" class="expand-img"
-                onclick="showContent()"
-                >
+                    alt="expand" class="expand-img"
+                    onclick="showContent()">
             </div>
 
             <div id="medDIV-content" class="medDIV-hidden">
@@ -32,7 +31,13 @@
                         </div>
                         <div class="medDIV-forms">
                             <label for="area">Area:</label>
-                            <input class="input-form" type="text" name="area" id="area" required>
+                            <select class="input-form" name="area" id="area" required>
+                                <option value="">--Choose Area--</option>
+                                <option value="Davao">Davao</option>
+                                <option value="Samal">Samal</option>
+                                <option value="Cotabato">Cotabato</option>
+                                <option value="Mati">Mati</option>
+                            </select>
                             <br>
                         </div>
                         <div class="w-3/8">
@@ -64,7 +69,7 @@
         </div>
 
         {{-- Agents Table --}}
-        
+
         <table border="1">
             <thead>
                 <tr>

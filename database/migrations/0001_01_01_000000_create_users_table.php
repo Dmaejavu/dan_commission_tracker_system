@@ -21,11 +21,11 @@ return new class extends Migration
 
         // Agent table
         Schema::create('agents', function (Blueprint $table) {
-            $table->integer('agentID')->primary()->autoIncrement();
-            $table->string('agentname', 50);
-            $table->float('comrate');
-            $table->string('area', 50);
-            $table->timestamps(); // Adds `created_at` and `updated_at` columns
+            $table->integer('agentID')->primary()->autoIncrement(); 
+            $table->string('agentname', 50); 
+            $table->double('comrate'); 
+            $table->enum('area', ['Davao', 'Samal', 'Cotabato', 'Mati']); 
+            $table->timestamps(); 
         });
 
         // Commission table
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->float('totalcom');
             $table->string('clientname', 50);
             $table->enum('status', ['Pending', 'Approved', 'Rejected', 'Canceled']);
-            $table->timestamps(); // Adds `created_at` and `updated_at` columns
+            $table->timestamps(); 
 
             // Foreign keys
             $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
