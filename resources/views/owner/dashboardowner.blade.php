@@ -43,12 +43,16 @@
                             <td>{{ $commission->agent->agentname }}</td>
                             <td>{{ $commission->clientname }}</td>
                             <td>$ {{ $commission->totalcom }}</td>
-                            <td>{{ $commission->status }}</td>
+                            <td>
+                                <span class="px-2 py-1 rounded text-white text-center inline-block w-24 bg-orange-300">
+                                    {{ $commission->status }}
+                                </span>
+                            </td>
                             <td>{{ $commission->created_at }}</td>
                             <td>
                                 <a href="{{ route('commissions.edit', $commission->comID) }}">Edit</a>
                             </td>
-                            </tr>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
