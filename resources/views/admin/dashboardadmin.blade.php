@@ -61,7 +61,7 @@
                             <select name="agentID" id="agentID" required>
                                 <option> --Choose-- </option>
                                 @foreach ($agents as $agent)
-                                <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
+                                <option value="{{ $agent->agentID }}">({{ $agent->agentID }}) {{ $agent->agentname }}</option>
                                 @endforeach
                             </select>
                             <br>
@@ -83,7 +83,7 @@
                     <th>ID</th>
                     <th>User</th>
                     <th>Agent</th>
-                    <th>Total Commission</th>
+                    <th>Total Price</th>
                     <th>Client Name</th>
                     <th>Bank Type</th>
                     <th>Card Type</th>
@@ -127,4 +127,23 @@
 </script>
 </div> <!-- End of content -->
 @endsection
+
+@if (session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const successMessage = "{{ session('success') }}";
+        alert(successMessage); 
+        window.location.href = "{{ route('dashboardadmin') }}"; 
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const errorMessage = "{{ session('error') }}";
+        alert(errorMessage); 
+    });
+</script>
+@endif
 

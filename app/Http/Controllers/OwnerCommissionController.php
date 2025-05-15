@@ -45,7 +45,8 @@ class OwnerCommissionController extends Controller
             'userID' => Auth::id(),
         ]);
 
-        return redirect()->route('viewCommissions')->with('success', 'Commission created successfully!');
+        // Set the success message
+        return redirect()->route('create_commission')->with('success', 'Commission created successfully!');
     }
 
     public function edit(Commission $commission)

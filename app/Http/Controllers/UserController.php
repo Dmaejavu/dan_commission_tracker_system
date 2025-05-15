@@ -16,20 +16,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string|max:50|unique:users,username',
-            'password' => 'required|string|min:3',
-            'position' => 'required|in:Admin,UnitManager', // Only Admin and UnitManager are allowed
-        ]);
+        try {
+            $request->validate([
+                'username' => 'required|string|max:50|unique:users,username',
+                'password' => 'required|string|min:6',
+                'position' => 'required|in:Admin,UnitManager',
+            ]);
 
-        User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password), // Hash the password
-            'position' => $request->position,
-        ]);
+            User::create([
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
+                'position' => $request->position,
+            ]);
 
-        // Redirect to the users page with a success message
-        return redirect()->route('manageUser')->with('success', 'User created successfully!');
+            // Redirect to the users page with a success message
+            return redirect()->route('users.index')->with('success', 'User created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create user.');
+        }
     }
 
     /**
@@ -43,23 +47,27 @@ class UserController extends Controller
     /**
      * Update the specified user in the database.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'username' => 'required|string|max:50|unique:users,username,' . $user->userID . ',userID',
-            'password' => 'nullable|string|min:3', // Password is optional
-            'position' => 'required|in:Admin,UnitManager', // Only Admin and UnitManager are allowed
-        ]);
+        try {
+            $user = User::findOrFail($id);
 
-        $user->username = $request->username;
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password); // Hash the new password
+            $request->validate([
+                'username' => 'required|string|max:50|unique:users,username,' . $user->userID . ',userID',
+                'position' => 'required|in:Admin,UnitManager',
+            ]);
+
+            $user->update([
+                'username' => $request->username,
+                'position' => $request->position,
+                'password' => $request->password ? bcrypt($request->password) : $user->password,
+            ]);
+
+            // Redirect to the users page with a success message
+            return redirect()->route('users.index')->with('success', 'User updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update user.');
         }
-        $user->position = $request->position;
-        $user->save();
-
-        // Redirect to the users page with a success message
-        return redirect()->route('manageUser')->with('success', 'User updated successfully!');
     }
 
     /**

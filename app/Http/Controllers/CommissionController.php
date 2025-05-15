@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Commission;
 use App\Models\Card;
+use App\Models\Agent; // Import the Agent model
 
 class CommissionController extends Controller
 {
@@ -78,15 +79,18 @@ class CommissionController extends Controller
     }
 
     public function create()
-    {   // Check if the user is an Owner
+    {
+        // Check if the user is an Admin
         if (!Auth::check() || Auth::user()->position !== 'Admin') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
         }
+
         $banktypes = Card::select('banktype')->distinct()->pluck('banktype');
         $cardtypes = Card::select('cardtype')->distinct()->pluck('cardtype');
+        $agents = Agent::all(); // Fetch all agents
 
-        return view('admin.create_commission', compact('banktypes', 'cardtypes'));
+        return view('admin.dashboardadmin', compact('banktypes', 'cardtypes', 'agents'));
     }
 
     public function index(Request $request)

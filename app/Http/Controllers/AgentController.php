@@ -9,29 +9,35 @@ use Illuminate\Support\Facades\Auth;
 class AgentController extends Controller
 {
     public function store(Request $request)
-    {  // Check if the user is an Owner
+    {
+        // Check if the user is an Owner
         if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
         }
-        $request->validate([
-            'agentname' => 'required|string|max:255',
-            'comrate' => 'required|numeric|min:0|max:100', // Commission rate as a percentage
-            'area' => 'required|string|max:255',
-        ]);
+        try {
+            $request->validate([
+                'agentname' => 'required|string|max:50',
+                'comrate' => 'required|numeric|min:1|max:100',
+                'area' => 'required|string',
+            ]);
 
-        Agent::create([
+            Agent::create([
             'agentname' => $request->agentname,
             'comrate' => $request->comrate / 100, // Convert percentage to decimal
             'area' => $request->area,
         ]);
 
-        // Redirect to the agents page with a success message
-        return redirect()->route('manageAgent')->with('success', 'Agent created successfully!');
+            // Redirect to the agents page with a success message
+            return redirect()->route('manageAgent')->with('success', 'Agent created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create agent.');
+        }
     }
 
     public function edit(Agent $agent)
-    {  // Check if the user is an Owner
+    {
+        // Check if the user is an Owner
         if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
@@ -43,17 +49,19 @@ class AgentController extends Controller
     }
 
     public function update(Request $request, Agent $agent)
-    {  // Check if the user is an Owner
+    {
+        // Check if the user is an Owner
         if (!Auth::check() || Auth::user()->position !== 'Owner') {
             Auth::logout(); // Destroy the session
             return redirect()->route('login')->with('error', 'Unauthorized access.');
         }
 
-        $request->validate([
-            'agentname' => 'required|string|max:255',
-            'comrate' => 'required|numeric|min:0|max:100', // Commission rate as a percentage
-            'area' => 'required|string|max:255',
-        ]);
+        try {
+            $request->validate([
+                'agentname' => 'required|string|max:50',
+                'comrate' => 'required|numeric|min:1|max:100',
+                'area' => 'required|string',
+            ]);
 
         $agent->update([
             'agentname' => $request->agentname,
@@ -61,8 +69,11 @@ class AgentController extends Controller
             'area' => $request->area,
         ]);
 
-        // Redirect to the agents page with a success message
-        return redirect()->route('manageAgent')->with('success', 'Agent updated successfully!');
+            // Redirect to the agents page with a success message
+            return redirect()->route('manageAgent')->with('success', 'Agent updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update agent.');
+        }
     }
 
     public function index(Request $request)

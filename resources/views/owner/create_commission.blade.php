@@ -14,7 +14,7 @@
                 <select name="agentID" id="agentID" required>
                     <option> --Choose-- </option>
                     @foreach ($agents as $agent)
-                    <option value="{{ $agent->agentID }}">{{ $agent->agentname }}</option>
+                    <option value="{{ $agent->agentID }}">({{ $agent->agentID }}) {{ $agent->agentname }}</option>
                     @endforeach
                 </select>
                 <br>
@@ -85,4 +85,24 @@
     banktypeSelect.addEventListener('change', updateTotalCommission);
     cardtypeSelect.addEventListener('change', updateTotalCommission);
 </script>
+
+
+@if (session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const successMessage = "{{ session('success') }}";
+        alert(successMessage); 
+        window.location.href = "{{ route('viewCommissions') }}"; 
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const errorMessage = "{{ session('error') }}";
+        alert(errorMessage); 
+    });
+</script>
+@endif
 @endsection
