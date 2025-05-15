@@ -35,7 +35,17 @@
                     <td>{{ $commission->user->username }}</td>
                     <td>{{ $commission->agent->agentname }}</td>
                     <td>{{ $commission->clientname }}</td>
-                    <td>{{ $commission->status }}</td>
+                    <td>
+                        <span 
+                            class="px-2 py-1 rounded text-white text-center inline-block w-24
+                            @if($commission->status == 'Approved') bg-green-300 
+                            @elseif($commission->status == 'Pending') bg-orange-300 
+                            @elseif($commission->status == 'Rejected') bg-red-500 
+                            @elseif($commission->status == 'Canceled') bg-red-300 
+                            @endif">
+                            {{ $commission->status }}
+                        </span>
+                    </td>
                     <td>{{ $commission->created_at }}</td>
                 </tr>
             @endforeach

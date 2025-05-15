@@ -55,13 +55,15 @@ class UserController extends Controller
             $request->validate([
                 'username' => 'required|string|max:50|unique:users,username,' . $user->userID . ',userID',
                 'position' => 'required|in:Admin,UnitManager',
+                'password' => 'nullable|string|min:6', // Password is optional but must be at least 6 characters if provided
             ]);
+            $user->username = $request->username;
+            $user->position = $request->position;
+            if ($request->filled('password')) {
+                $user->password = bcrypt($request->password);
+            }
 
-            $user->update([
-                'username' => $request->username,
-                'position' => $request->position,
-                'password' => $request->password ? bcrypt($request->password) : $user->password,
-            ]);
+            $user->save();
 
             // Redirect to the users page with a success message
             return redirect()->route('users.index')->with('success', 'User updated successfully!');

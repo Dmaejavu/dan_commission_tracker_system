@@ -12,7 +12,7 @@ use App\Http\Controllers\OwnerCommissionController;
 use Illuminate\Http\Request;
 use App\Models\Card;
 
-// Default route for login
+// login
 Route::get('/', function () {
     return view('auth.login'); 
 });
@@ -22,10 +22,8 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// User management routes (bypassing authentication for creating users)
+// User management routes 
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-
-// Other routes requiring authentication
 Route::middleware(['auth'])->group(function () {
     // Admin dashboard
     Route::get('/dashboardadmin', [AdminController::class, 'dashboard'])->name('dashboardadmin');
