@@ -19,7 +19,7 @@
                 </div>
                 <div class="card">
                     <h2>Top Agent</h2>
-                    <p>{{ $topAgent ? $topAgent->agentname : 'N/A' }}</p>
+                    <p>{{ $totalCommissions == 0 ? 'N/A' : ($topAgent ? $topAgent->agentname : 'N/A') }}</p>
                 </div>
             </div>
 
