@@ -4,6 +4,7 @@
         <nav>
             <div class="sidebar-section">
                 <a class="imHere" href="{{ route('dashboardowner') }}">Dashboard</a>
+                <a class="imHere" href="{{ route('viewLogs') }}">Logs</a>
             </div>
             <div class="sidebar-section">
                 <small>Manage Commissions</small>

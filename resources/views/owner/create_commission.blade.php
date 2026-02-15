@@ -41,10 +41,6 @@
                 </select>
                 <br>
 
-                <label for="totalcom">Total Commission:</label>
-                <span id="totalcom-display">$0.00</span>
-                <br>
-
                 <label for="status">Status:</label>
                 <select name="status" id="status" required>
                     <option value="Pending">Pending</option>

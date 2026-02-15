@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manage-users', [OwnerController::class, 'manageUsers'])->name('manageUser');
     Route::get('/manage-agents', [OwnerController::class, 'manageAgents'])->name('manageAgent');
     Route::get('/create-commission', [OwnerCommissionController::class, 'createCommission'])->name('create_commission');
+    Route::get('/viewLogs', [OwnerController::class, 'viewLogs'])->name('viewLogs'); 
 
     // Commission 
     Route::get('/commissions/create', [CommissionController::class, 'create'])->name('commissions.create');

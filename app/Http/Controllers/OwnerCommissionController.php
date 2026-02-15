@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Commission;
 use App\Models\Card;
 use App\Models\Agent;
+use App\Models\Log;
 
 class OwnerCommissionController extends Controller
 {
@@ -36,16 +37,31 @@ class OwnerCommissionController extends Controller
         }
 
         // Create the commission
-        Commission::create([
+        $commission = Commission::create([
             'clientname' => $request->clientname,
-            'totalcom' => $card->prices, // Use the card price as the total commission
+            'totalcom' => $card->prices, 
             'status' => $request->status, 
             'cardID' => $card->cardID,
             'agentID' => $request->agentID,
             'userID' => Auth::id(),
         ]);
 
-        // Set the success message
+        // Log create comms
+        Log::create([
+            'userID' => Auth::id(),
+            'action' => 'created_commission',
+            'model' => 'Commission',
+            'model_id' => $commission->comID,
+            'description' => 'created commission for ' . $request->clientname . ' with ' . $request->banktype . ' ' . $request->cardtype . ' card, amount ₱' . $card->prices . '.',
+            'new_values' => json_encode([
+                'clientname' => $request->clientname,
+                'banktype' => $request->banktype,
+                'cardtype' => $request->cardtype,
+                'totalcom' => $card->prices,
+                'status' => $request->status,
+            ])
+        ]);
+
         return redirect()->route('create_commission')->with('success', 'Commission created successfully!');
     }
 
@@ -73,10 +89,33 @@ class OwnerCommissionController extends Controller
             'status' => 'required|in:Pending,Approved,Rejected,Canceled',
         ]);
 
+        // Store old values before updating
+        $oldValues = [
+            'totalcom' => $commission->totalcom,
+            'clientname' => $commission->clientname,
+            'status' => $commission->status,
+        ];
+
         $commission->update([
             'totalcom' => $request->totalcom,
             'clientname' => $request->clientname,
             'status' => $request->status,
+        ]);
+
+        // Log update comms
+        $actionType = $request->status === 'Approved' ? 'approved_commission' : 'updated_commission';
+        Log::create([
+            'userID' => Auth::id(),
+            'action' => $actionType,
+            'model' => 'Commission',
+            'model_id' => $commission->comID,
+            'description' => 'commission ' . $commission->comID . ' status changed to ' . $request->status . '.',
+            'old_values' => json_encode($oldValues),
+            'new_values' => json_encode([
+                'totalcom' => $request->totalcom,
+                'clientname' => $request->clientname,
+                'status' => $request->status,
+            ])
         ]);
 
         return redirect()->route('viewCommissions')->with('success', 'Commission updated successfully!');

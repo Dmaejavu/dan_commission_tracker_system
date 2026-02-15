@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Agent;
 use App\Models\Commission;
 use App\Models\User;
+use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends Controller
@@ -87,12 +88,50 @@ class OwnerController extends Controller
 
     public function createCommission()
     {
-if (!Auth::check() || Auth::user()->position !== 'Owner') {
-    Auth::logout(); // Destroy the session
-    return redirect()->route('login')->with('error', 'Unauthorized access.');
-}
+        if (!Auth::check() || Auth::user()->position !== 'Owner') {
+            Auth::logout(); // Destroy the session
+            return redirect()->route('login')->with('error', 'Unauthorized access.');
+        }
 
         $agents = Agent::all(); // Fetch all agents
         return view('owner.create_commission', compact('agents'));
+    }
+
+    public function viewLogs()
+    {
+        if (!Auth::check() || Auth::user()->position !== 'Owner'){
+            Auth::logout(); 
+            return redirect()->route('login')->with('error', 'Unauthorized access'); 
+        }
+
+        $logList = Log::select(
+            'logs.*',
+            'users.username',
+            'users.position'
+            )
+            ->join('users', 'users.userID', '=', 'logs.userID')
+            ->get();
+
+
+
+        // Total commissions where status is 'Approved'
+        // $totalCommissions = Commission::where('status', 'Approved')->sum('totalcom');
+
+        // Top agent based on approved commissions
+        // $topAgent = Agent::withSum(['commissions as approved_commissions' => function ($query) {
+        //     $query->where('status', 'Approved');
+        // }], 'totalcom')
+        // ->orderByDesc('approved_commissions')
+        // ->first();
+
+        // Total agents
+        //$totalAgents = Agent::count();
+
+        // Recent pending commissions
+        //$recentPendingCommissions = Commission::where('status', 'Pending')->latest()->take(10)->get();
+
+        return view('owner.viewLogs', compact( 
+            'logList'
+        ));
     }
 }
