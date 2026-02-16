@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Commission;
 use App\Models\Card;
+use App\Models\Log; 
 use App\Models\Agent; // Import the Agent model
 
 class CommissionController extends Controller
@@ -73,6 +74,29 @@ class CommissionController extends Controller
             'totalcom' => $request->totalcom,
             'clientname' => $request->clientname,
             'status' => $request->status,
+        ]);
+
+                // Store old values before updating
+        $oldValues = [
+            'totalcom' => $commission->totalcom,
+            'clientname' => $commission->clientname,
+            'status' => $commission->status,
+        ];
+
+        // Log update comms
+        $actionType = $request->status === 'Approved' ? 'approved_commission' : 'updated_commission';
+        Log::create([
+            'userID' => Auth::id(),
+            'action' => $actionType,
+            'model' => 'Commission',
+            'model_id' => $commission->comID,
+            'description' => 'commission ' . $commission->comID . ' status changed to ' . $request->status . '.',
+            'old_values' => json_encode($oldValues),
+            'new_values' => json_encode([
+                'totalcom' => $request->totalcom,
+                'clientname' => $request->clientname,
+                'status' => $request->status,
+            ])
         ]);
 
         return redirect()->route('dashboardowner')->with('success', 'Commission updated successfully!');
