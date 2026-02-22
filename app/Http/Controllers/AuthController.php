@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use App\Models\Log;
+
 class AuthController extends Controller
 {
     use ValidatesRequests;
@@ -40,6 +42,18 @@ class AuthController extends Controller
             RateLimiter::clear($key); 
 
             $user = Auth::user();
+
+            //Log the login
+            Log::create([
+                'userID' => $user->userID,
+                'action' => 'login',
+                'model' => 'User',
+                'model_id' => $user->userID,
+                'description' => $user->username . ' logged in successfully. ',
+                'old_values' => null, 
+                'new_values' => null, 
+            ]);
+
             switch ($user->position) {
                 case 'Admin':
                     return redirect()->route('dashboardadmin'); // Admin dashboard
@@ -60,6 +74,18 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        //Log the login
+            Log::create([
+                'userID' => $user->userID,
+                'action' => 'login',
+                'model' => 'User',
+                'model_id' => $user->userID,
+                'description' => $user->username . ' logged out successfully. ',
+                'old_values' => null, 
+                'new_values' => null, 
+            ]);
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
