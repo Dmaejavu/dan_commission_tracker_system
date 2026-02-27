@@ -13,7 +13,7 @@ class User extends Authenticatable
     public $incrementing = true;
     protected $keyType = 'int';
 
-    protected $fillable = ['username', 'password', 'position'];
+    protected $fillable = ['username', 'password', 'position', 'email'];
 
     public $timestamps = false; 
 }

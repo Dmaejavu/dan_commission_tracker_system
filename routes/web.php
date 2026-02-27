@@ -17,6 +17,26 @@ Route::get('/', function () {
     return view('auth.login'); 
 });
 
+// Forgot password url routing
+Route::get('/forgot-password', function () {
+    return view('auth.forgotPass');
+})->name('forgotPass');
+
+//Forgot password 
+Route::post('/forgot-password', [AuthController::class, 'forgotPassEmailVerify']
+)->name('forgotPassEmailVerify');
+
+Route::get('/forgot-password/verify', [AuthController::class, 'showVerifyForm']
+)->name('forgotPassSubmit');
+
+Route::get('/resetPasswordPage', function(){
+    return view('resetPasswordPage');
+})->name('resetPasswordPage'); 
+Route::post('/resetPasswordCode', [AuthController::class, 'resetPasswordCode'])->name('resetPasswordCode');
+Route::get('/forgot-password/new-pass', [AuthController::class, 'showNewPassForm'])->name('forgotPassNewPass');
+Route::post('/password-reset', [AuthController::class, 'passwordReset'])->name('passwordReset');
+
+
 // Authentication routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
