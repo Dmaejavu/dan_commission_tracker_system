@@ -14,9 +14,7 @@
                                     <h3>{{ $log->created_at->format('Y-m-d H:i:s') }}</h3>
                                     <div class="longCardContent">
                                         <p><strong>{{ $log->username }}</strong> <em>({{ $log->position }})</em> {{ $log->description }} </p>
-                                        <div class="delButtCont">
-                                            <img class="wdelButt" src="{{ asset('images/icons8-white_delete-96.png') }}" alt="wdel_logo">    
-                                        </div>
+                                        <p style="opacity: 0.4"><i>{{ $log->ip_address }} Yess</i></p>
                                     </div>
                                     {{-- <input type="checkbox" name="delConfirm" value="no">
                                 </form> --}}

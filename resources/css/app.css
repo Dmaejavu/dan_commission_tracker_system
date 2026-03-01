@@ -283,16 +283,9 @@ table tr{
 }
 
 .longCardContent {
-    @apply mt-2 flex w-full items-center place-content-between 
+    @apply mt-3 flex flex-col w-full
 }
 
-.delButtCont {
-    @apply w-fit p-1 content-center-safe rounded-md shadow-sm shadow-gray-300 hover:bg-red-500 hover:scale-110 transition-all duration-200 active:bg-red-300
-}
-
-.delButtCont .wdelButt {
-    @apply w-6 h-6 p-0.5 flex items-center justify-center
-}
 /* .medDIV .longCard .wdelButt{
     @apply flex
 } */

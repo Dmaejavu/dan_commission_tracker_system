@@ -52,6 +52,7 @@ class AuthController extends Controller
             Log::create([
                 'userID' => $user->userID,
                 'action' => 'login',
+                'ip_address' => request()->ip(), 
                 'model' => 'User',
                 'model_id' => $user->userID,
                 'description' => $user->username . ' logged in successfully. ',
@@ -84,6 +85,7 @@ class AuthController extends Controller
             Log::create([
                 'userID' => $user->userID,
                 'action' => 'login',
+                'ip_address' => request()->ip(), 
                 'model' => 'User',
                 'model_id' => $user->userID,
                 'description' => $user->username . ' logged out successfully. ',
@@ -174,6 +176,7 @@ class AuthController extends Controller
         Log::create([
             'userID' => $user->userID,
             'action' => 'password_reset',
+            'ip_address' => request()->ip(), 
             'model' => 'User',
             'model_id' => $user->userID,
             'description' => $user->username . ' reset their password.',

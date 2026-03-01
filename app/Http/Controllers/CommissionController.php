@@ -36,13 +36,29 @@ class CommissionController extends Controller
         }
 
         // Create the commission
-        Commission::create([
+        $commission = Commission::create([
             'clientname' => $request->clientname,
             'totalcom' => $card->prices, // Use the card price as the total commission
             'status' => 'Pending', // Default status
             'cardID' => $card->cardID,
             'agentID' => $request->agentID,
             'userID' => Auth::id(),
+        ]);
+
+        // Log create comms
+        Log::create([
+            'userID' => Auth::id(),
+            'action' => 'created_commission',
+            'model' => 'Commission',
+            'model_id' => $commission->comID,
+            'description' => 'created commission for ' . $request->clientname . ' with ' . $request->banktype . ' ' . $request->cardtype . ' card, amount ₱' . $card->prices . '.',
+            'new_values' => json_encode([
+                'clientname' => $request->clientname,
+                'banktype' => $request->banktype,
+                'cardtype' => $request->cardtype,
+                'totalcom' => $card->prices,
+                'status' => $request->status,
+            ])
         ]);
 
         return redirect()->route('dashboardadmin')->with('success', 'Commission created successfully!');
@@ -88,6 +104,7 @@ class CommissionController extends Controller
         Log::create([
             'userID' => Auth::id(),
             'action' => $actionType,
+            'ip_address' => request()->ip(), 
             'model' => 'Commission',
             'model_id' => $commission->comID,
             'description' => 'commission ' . $commission->comID . ' status changed to ' . $request->status . '.',
